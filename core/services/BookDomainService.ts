@@ -2,6 +2,7 @@ import {BookRepository} from "../repositories/BookRepository/BookRepository";
 import {Type} from "../domain/Type";
 import {Publisher} from "../domain/Publisher";
 import {WishListBook} from "../domain/WishListBook";
+import {UserDto} from "../repositories/UserRepository/dto/UserDto";
 
 
 export class BookDomainService implements BookRepository{
@@ -13,17 +14,9 @@ export class BookDomainService implements BookRepository{
         description: string,
         file: string,
         ISBN: string,
-        type: Type,
-        publisher: Publisher,
-        wishlistBooks: WishListBook[]
-    ) {
-
-
-        // const book = new Book(
-        //     id, name, author, description, file, ISBN, type, publisher, wishlistBooks
-        // );
-
-        const createdBook = await this.bookRepository.createBook(name, author, description, file, ISBN, type, publisher, wishlistBooks);
+        typeId: number,
+        publisherId: number) {
+        const createdBook = await this.bookRepository.createBook(name, author, description, file, ISBN, typeId, publisherId);
         return createdBook;
     }
 

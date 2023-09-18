@@ -1,8 +1,5 @@
 import {Book} from "../../domain/Book";
-import {BookDto} from "./dto/BookDto";
-import {WishListBook} from "../../domain/WishListBook";
-import {Publisher} from "../../domain/Publisher";
-import {Type} from "../../domain/Type";
+import {User} from "../../domain/User";
 
 
 export interface BookRepository {
@@ -12,10 +9,10 @@ export interface BookRepository {
         description: string,
         file: string,
         ISBN: string,
-        type: Type,
-        publisher: Publisher,
-        wishlistBooks: WishListBook[]
-    ): Promise<BookDto>;
+        typeId: number,
+        publisherId: number
+
+    ): Promise<User>;
     getAllBooks(): Promise<Book[]>;
     getBookById(id: number): Promise<Book | null>;
     deleteBook(id: number): Promise<void>;
