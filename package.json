@@ -35,6 +35,7 @@
     "nodemailer": "^6.9.5",
     "pino": "^8.15.1",
     "pino-pretty": "^10.2.0",
+    "typeorm": "^0.3.17",
     "uuid": "^9.0.1"
   }
 }
