@@ -10,8 +10,7 @@ export class Book {
         readonly description: string,
         readonly file: string,
         readonly ISBN: string,
-        readonly type: Type,
-        readonly publisher: Publisher,
-        readonly wishlistBooks: WishListBook[]
+        readonly typeId: number,
+        readonly publisherId: number
     ) {}
 }

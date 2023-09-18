@@ -9,7 +9,7 @@ import ApiError from "../exceptions/Api-Error";
 
 const userRepository = PostgresDataSource.getRepository(User);
 
-class UserService {
+class UserInfrastructureService {
     async registration(email: string, username: string, password: string, role: string) {
         const candidate = await userRepository.findOne({where: {email}})
         if (candidate) {
@@ -103,4 +103,4 @@ class UserService {
     }
 }
 
-export default new UserService();
+export default new UserInfrastructureService();

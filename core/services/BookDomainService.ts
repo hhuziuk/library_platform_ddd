@@ -3,6 +3,7 @@ import {Type} from "../domain/Type";
 import {Publisher} from "../domain/Publisher";
 import {WishListBook} from "../domain/WishListBook";
 import {UserDto} from "../repositories/UserRepository/dto/UserDto";
+import {Book} from "../domain/Book";
 
 
 export class BookDomainService implements BookRepository{
@@ -22,6 +23,18 @@ export class BookDomainService implements BookRepository{
 
     async getAllBooks() {
         return this.bookRepository.getAllBooks();
+    }
+
+    async findOne(object: object) {
+        return this.bookRepository.findOne(object);
+    }
+
+    async save(book: Book){
+        return this.bookRepository.save(book);
+    }
+
+    async create(object: object) {
+        return this.bookRepository.create(object);
     }
 
     async getBookById(id: number) {

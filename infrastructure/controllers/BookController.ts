@@ -1,9 +1,8 @@
 import {Response, Request, NextFunction} from "express";
-import {BookService} from "../services/BookInfrastructureService";
 import {validate} from "class-validator";
 import ApiError from "../exceptions/Api-Error";
 import {plainToClass} from "class-transformer";
-import {Book} from "../db/entities/BookModel";
+import {BookEntity} from "../db/entities/BookModel";
 import {v4} from "uuid";
 import path from "path";
 import logger from "../../tools/logger";
@@ -16,7 +15,7 @@ export class BookController{
         try{
             const {name, author, description, ISBN, typeId, publisherId} = req.body
             const {file} = req.files as { file: UploadedFile };
-            const validationBook = plainToClass(Book, {name, author, description, file, ISBN, typeId, publisherId});
+            const validationBook = plainToClass(BookEntity, {name, author, description, file, ISBN, typeId, publisherId});
             const errors : any = await validate(validationBook)
             if (errors.length > 0) {
                 return next(ApiError.BadRequest('validation error', errors))
@@ -61,3 +60,4 @@ export class BookController{
         }
     }
 }
+export default new BookController()

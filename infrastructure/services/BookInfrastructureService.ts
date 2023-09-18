@@ -1,12 +1,12 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Book} from "../db/entities/BookModel";
+import {BookEntity} from "../db/entities/BookModel";
 import ApiError from "../exceptions/Api-Error";
-import {BookDto} from "../../core/repositories/BookRepository/dto/BookDto";
 import logger from "../../tools/logger";
+import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
 
-const bookRepository = PostgresDataSource.getRepository(Book);
+const bookRepository = PostgresDataSource.getRepository(BookEntity);
 
-export class BookService{
+export class BookInfrastructureService{
     async create (name: string, author: string, description: string, file: string, ISBN: string,
                   typeId: number, publisherId: number) {
         const userBook = await bookRepository.findOne({where: {ISBN}})

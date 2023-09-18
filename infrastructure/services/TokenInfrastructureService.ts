@@ -5,7 +5,7 @@ import type { JwtPayload } from "jsonwebtoken"
 
 const tokenRepository = PostgresDataSource.getRepository(Token);
 
-class TokenService{
+class TokenInfrastructureService{
     generateTokens(payload: any) {
         const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET || '', {expiresIn: '1h'})
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || '', {expiresIn: '30d'})
@@ -59,4 +59,4 @@ class TokenService{
 
 }
 
-export default new TokenService()
+export default new TokenInfrastructureService()

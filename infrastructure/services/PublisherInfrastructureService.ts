@@ -4,7 +4,7 @@ import ApiError from "../exceptions/Api-Error";
 
 const publisherRepository = PostgresDataSource.getRepository(Publisher);
 
-class PublisherService{
+class PublisherInfrastructureService{
     async create (name: string){
         const userPublisher = await publisherRepository.findOne({where: {name}})
         if(userPublisher){
@@ -36,4 +36,4 @@ class PublisherService{
 
 }
 
-export default new PublisherService();
+export default new PublisherInfrastructureService();

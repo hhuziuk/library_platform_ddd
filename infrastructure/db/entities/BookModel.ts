@@ -10,7 +10,7 @@ import {Publisher} from "./PublisherModel";
 
 
 @Entity('Book')
-export class Book {
+export class BookEntity {
     @PrimaryGeneratedColumn()
     public id: number;
 

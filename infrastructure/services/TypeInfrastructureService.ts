@@ -4,7 +4,7 @@ import ApiError from "../exceptions/Api-Error";
 
 const typeRepository = PostgresDataSource.getRepository(Type);
 
-class TypeService{
+class TypeInfrastructureService{
     async create (name: string){
         const userType = await typeRepository.findOne({where: {name}})
         if(userType){
@@ -37,4 +37,4 @@ class TypeService{
 
 }
 
-export default new TypeService();
+export default new TypeInfrastructureService();

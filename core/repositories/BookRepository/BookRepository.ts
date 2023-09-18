@@ -14,6 +14,9 @@ export interface BookRepository {
 
     ): Promise<User>;
     getAllBooks(): Promise<Book[]>;
+    create(object: object): Promise<Book>;
+    save(book: Book): Promise<Book>;
+    findOne(object: object): Promise<Book>;
     getBookById(id: number): Promise<Book | null>;
     deleteBook(id: number): Promise<void>;
 
