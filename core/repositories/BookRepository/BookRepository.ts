@@ -1,18 +1,23 @@
 import {Book} from "../../domain/Book";
 import {BookDto} from "./dto/BookDto";
+import {WishListBook} from "../../domain/WishListBook";
+import {Publisher} from "../../domain/Publisher";
+import {Type} from "../../domain/Type";
+
 
 export interface BookRepository {
-    create(
-        req: Request,
+    createBook(
         name: string,
         author: string,
         description: string,
         file: string,
         ISBN: string,
-        typeId: number,
-        publisherId: number,
+        type: Type,
+        publisher: Publisher,
+        wishlistBooks: WishListBook[]
     ): Promise<BookDto>;
-    getAll(req: Request): Promise<{ books: Book[] }>;
-    getOne(req: Request, id: number): Promise<Book | null>;
-    delete(req: Request, id: number): Promise<{ book: Book | null }>;
+    getAllBooks(): Promise<Book[]>;
+    getBookById(id: number): Promise<Book | null>;
+    deleteBook(id: number): Promise<void>;
+
 }
