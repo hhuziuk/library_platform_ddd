@@ -1,6 +1,6 @@
 import {PublisherRepostiory} from "../repositories/PublisherRepository/PublisherRepostiory";
 
-export class PublisherService implements PublisherRepostiory {
+export class PublisherDomainService implements PublisherRepostiory {
     constructor(private publisherRepository: PublisherRepostiory) {}
 
     async createPublisher(name: string){

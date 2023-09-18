@@ -1,7 +1,7 @@
 import {UserRepository} from "../repositories/UserRepository/UserRepository";
 
 
-export class UserService implements UserRepository{
+export class UserDomainService implements UserRepository{
     constructor(private userRepository: UserRepository) {}
 
     async createUser(email: string, username: string, password: string, role: string) {

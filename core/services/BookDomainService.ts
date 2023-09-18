@@ -4,7 +4,7 @@ import {Publisher} from "../domain/Publisher";
 import {WishListBook} from "../domain/WishListBook";
 
 
-export class BookService implements BookRepository{
+export class BookDomainService implements BookRepository{
     constructor(private bookRepository: BookRepository) {}
 
     async createBook(

@@ -2,7 +2,7 @@ import jwt, {JwtPayload} from "jsonwebtoken";
 import {TokenRepository} from "../repositories/TokenRepository/TokenRepository";
 
 
-export class TokenService implements TokenRepository {
+export class TokenDomainService implements TokenRepository {
     constructor(
         private readonly accessTokenSecret: string,
         private readonly refreshTokenSecret: string
