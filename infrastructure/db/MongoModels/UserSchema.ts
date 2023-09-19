@@ -1,11 +1,7 @@
 import mongoose, {Schema} from 'mongoose';
 import Boolean = module
 import * as module from "module";
-
-const validateEmail = function(email) {
-    const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email)
-};
+import isEmail from 'validator/lib/isISBN';
 
 const UserSchema = new Schema({
     username: {
@@ -19,8 +15,11 @@ const UserSchema = new Schema({
         lowercase: true,
         unique: true,
         required: true,
-        validate: [validateEmail, 'Please fill a valid email address'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        validate: {
+            validator: (value) => isEmail(value),
+            message: 'Invalid email',
+        },
+
     },
     role: {
         type: String,
