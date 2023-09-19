@@ -2,28 +2,29 @@ import {PostgresDataSource} from "../../tools/PGconnect";
 import {Publisher} from "../db/entities/PublisherModel";
 import ApiError from "../exceptions/Api-Error";
 import {Token} from "../db/entities/TokenModel";
-
-const publisherRepository = PostgresDataSource.getRepository(Publisher);
+import {TokenDomainService} from "../../core/services/TokenDomainService";
+import {PublisherDomainService} from "../../core/services/PublisherDomainService";
 
 class PublisherInfrastructureService{
+    constructor(readonly publisherRepository: any = new PublisherDomainService(publisherRepository)) {}
     async create (name: string){
-        const userPublisher = await publisherRepository.findOne({where: {name}})
+        const userPublisher = await this.publisherRepository.findOne({where: {name}})
         if(userPublisher){
             throw ApiError.BadRequest(`The same type already exists`)
         }
-        const publisher = await publisherRepository.create({name})
-        await publisherRepository.save(publisher)
+        const publisher = await this.publisherRepository.create({name})
+        await this.publisherRepository.save(publisher)
         return publisher;
     }
     async getAll (){
-        const publishers = await publisherRepository.find()
+        const publishers = await this.publisherRepository.find()
         return {publishers};
     }
     async getOne (id: number){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
-        const publisher = publisherRepository.findOneBy({id})
+        const publisher = this.publisherRepository.findOneBy({id})
         return publisher
     }
 
@@ -31,7 +32,7 @@ class PublisherInfrastructureService{
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
-        const publisher = publisherRepository.delete({id})
+        const publisher = this.publisherRepository.delete({id})
         return {publisher}
     }
 
