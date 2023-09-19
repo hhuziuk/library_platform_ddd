@@ -5,13 +5,19 @@ import logger from "./tools/logger";
 import cookieParser from "cookie-parser";
 import mongoose from 'mongoose'
 import {PostgresDataSource} from "./tools/PGconnect";
+import errorMiddleware from "./infrastructure/middleware/ErrorMiddleware";
+import fileUpload from "express-fileupload";
+import router from "./infrastructure/routers";
 
 const PORT = process.env.PORT || 3015;
 const app = express();
 
 app.use(express.json())
 app.use(cors())
+app.use(fileUpload({}))
 app.use(cookieParser())
+app.use('/api', router)
+app.use(errorMiddleware)
 
 
 const start = async() => {

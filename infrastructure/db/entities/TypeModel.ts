@@ -21,6 +21,7 @@ export class Type {
     })
     public name: string;
 
+    //
 
     @OneToMany(() => Book, book => book.type)
     books: Book[];

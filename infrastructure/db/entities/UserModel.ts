@@ -4,7 +4,7 @@ import {
     MaxLength,
     MinLength
 } from "class-validator"
-import {WishlistBook} from "./WishListBooksModel";
+import {Wishlist} from "./WishListModel";
 
 
 @Entity('User')

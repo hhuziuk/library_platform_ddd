@@ -7,10 +7,10 @@ import {v4} from "uuid";
 import path from "path";
 import logger from "../../tools/logger";
 import {UploadedFile} from "express-fileupload";
-import {BookDomainService} from "../../core/services/BookDomainService";
+import BookInfrastructureService from "../services/BookInfrastructureService";
 
-export class BookController{
-    constructor(readonly bookService: BookDomainService){}
+class BookController{
+    constructor(readonly bookService: any = BookInfrastructureService) {}
     async create(req: Request, res: Response, next: NextFunction){
         try{
             const {name, author, description, ISBN, typeId, publisherId} = req.body
@@ -22,9 +22,10 @@ export class BookController{
             }
             const fileName = v4() + '.pdf';
             logger.info(fileName)
-            file.mv(path.resolve(__dirname, '..', 'static', fileName))
+            await file.mv(path.resolve(__dirname, '..', 'static', fileName))
 
             const book = await this.bookService.createBook(name, author, description, fileName, ISBN, typeId, publisherId)
+            //const book = await BookInfrastructureService.create(name, author, description, fileName, ISBN, typeId, publisherId)
             return res.json(book)
         } catch(e){
             next(e);
@@ -33,7 +34,8 @@ export class BookController{
     }
     async getAll(req: Request, res: Response, next: NextFunction){
         try{
-            const books = await this.bookService.getAllBooks();
+            //const books = await this.bookService.getAllBooks();
+            const books = await BookInfrastructureService.getAll();
             return res.json(books);
         } catch(e) {
             next(e);
@@ -43,7 +45,8 @@ export class BookController{
     async getOne(req: Request, res: Response, next: NextFunction){
         try{
             const {id} = req.params
-            const book = await this.bookService.getBookById(parseInt(id, 10))
+            //const book = await this.bookService.getBookById(parseInt(id, 10))
+            const book = await BookInfrastructureService.getOne(parseInt(id, 10))
             return res.json(book)
         } catch(e){
             next(e);
@@ -53,11 +56,12 @@ export class BookController{
     async delete(req: Request, res: Response, next: NextFunction){
         try{
             const {id} = req.body;
-            const book = await this.bookService.deleteBook(id)
+            //const book = await this.bookService.deleteBook(id)
+            const book = await BookInfrastructureService.delete(id)
             return res.json(book)
         } catch(e){
             next(e);
         }
     }
 }
-export default new BookController()
+export default new BookController(BookInfrastructureService);

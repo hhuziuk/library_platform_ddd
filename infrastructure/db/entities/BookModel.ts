@@ -10,7 +10,7 @@ import {Publisher} from "./PublisherModel";
 
 
 @Entity('Book')
-export class BookEntity {
+export class Book {
     @PrimaryGeneratedColumn()
     public id: number;
 
@@ -45,6 +45,8 @@ export class BookEntity {
     @Column({nullable: false})
     public publisherId: number;
 
+
+    //
     @ManyToOne(() => Type, type => type.books)
     type: Type;
 

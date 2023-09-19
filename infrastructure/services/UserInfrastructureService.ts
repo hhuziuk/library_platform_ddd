@@ -6,20 +6,22 @@ import {v4} from 'uuid'
 import mailService from "./MailService";
 import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
+import {UserDomainService} from "../../core/services/UserDomainService";
+import {BookEntity} from "../db/entities/BookModel";
 
-const userRepository = PostgresDataSource.getRepository(User);
 
 class UserInfrastructureService {
+    constructor(readonly userRepository: any = new UserDomainService(userRepository)) {}
     async registration(email: string, username: string, password: string, role: string) {
-        const candidate = await userRepository.findOne({where: {email}})
+        const candidate = await this.userRepository.findOne({where: {email}})
         if (candidate) {
             throw ApiError.BadRequest(`User with the same ${email} already exists`)
         }
         const hashPassword = await bcrypt.hash(password, 8)
         const activationLink = v4()
 
-        const user = await userRepository.create({email, username, password: hashPassword, activationLink, role})
-        await userRepository.save(user)
+        const user = await this.userRepository.create({email, username, password: hashPassword, activationLink, role})
+        await this.userRepository.save(user)
         await mailService.sendActivationMail(email, `${process.env.API_URL}api/user/activate/${activationLink}`)
 
         const userDto = new UserDto(user) // id, email, role, isActivated
@@ -33,17 +35,17 @@ class UserInfrastructureService {
     }
 
     async activate(activationLink: any) {
-        const user = await userRepository.findOne({where: {activationLink}})
+        const user = await this.userRepository.findOne({where: {activationLink}})
         if (!user) {
             throw ApiError.BadRequest("activation link is not correct")
         }
         user.isActivated = true;
-        await userRepository.save(user);
+        await this.userRepository.save(user);
     }
 
     async login(email: string, password: string) {
         //const user = await userRepository.findOne({where: {email}})
-        const user = await userRepository.findOne({
+        const user = await this.userRepository.findOne({
             where: {email}
         })
         if (!user) {
@@ -77,7 +79,7 @@ class UserInfrastructureService {
         if(!userData || !tokenFromDatabase){
             throw ApiError.UnauthorizedError()
         }
-        const user = await userRepository.findOneOrFail({
+        const user = await this.userRepository.findOneOrFail({
             where: {id: userData.id},
             select: {
                 id: true,
@@ -98,9 +100,10 @@ class UserInfrastructureService {
     }
 
     async getUsers(){
-        const users = await userRepository.find();
+        const users = await this.userRepository.find();
         return users;
     }
 }
 
-export default new UserInfrastructureService();
+const userService = new UserInfrastructureService(PostgresDataSource.getRepository(User));
+export default userService;
