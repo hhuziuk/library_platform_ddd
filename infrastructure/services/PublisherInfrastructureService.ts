@@ -1,6 +1,7 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
 import {Publisher} from "../db/entities/PublisherModel";
 import ApiError from "../exceptions/Api-Error";
+import {Token} from "../db/entities/TokenModel";
 
 const publisherRepository = PostgresDataSource.getRepository(Publisher);
 
@@ -36,4 +37,5 @@ class PublisherInfrastructureService{
 
 }
 
-export default new PublisherInfrastructureService();
+const publisherService = new PublisherInfrastructureService(PostgresDataSource.getRepository(Publisher));
+export default publisherService;

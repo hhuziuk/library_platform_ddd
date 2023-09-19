@@ -3,39 +3,17 @@ import {TokenRepository} from "../repositories/TokenRepository/TokenRepository";
 
 
 export class TokenDomainService implements TokenRepository {
-    constructor(
-        private readonly accessTokenSecret: string,
-        private readonly refreshTokenSecret: string
-    ) {}
+    constructor(private tokenRepository: TokenRepository) {}
 
     generateTokens(payload: JwtPayload) {
-        const accessToken = jwt.sign(payload, this.accessTokenSecret, {
-            expiresIn: '1h',
-        });
-        const refreshToken = jwt.sign(payload, this.refreshTokenSecret, {
-            expiresIn: '30d',
-        });
-        return {
-            accessToken,
-            refreshToken,
-        };
+        return this.tokenRepository.generateTokens(payload)
     }
 
     validateAccessToken(token: string) {
-        try {
-            const userData = jwt.verify(token, this.accessTokenSecret) as JwtPayload;
-            return userData;
-        } catch (e) {
-            return null;
-        }
+        return this.tokenRepository.validateAccessToken(token)
     }
 
     validateRefreshToken(token: string) {
-        try {
-            const userData = jwt.verify(token, this.refreshTokenSecret) as JwtPayload;
-            return userData;
-        } catch (e) {
-            return null;
-        }
+        return this.tokenRepository.validateAccessToken(token)
     }
 }

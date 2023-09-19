@@ -2,10 +2,11 @@ import jwt from 'jsonwebtoken'
 import {PostgresDataSource} from "../../tools/PGconnect";
 import {Token} from "../db/entities/TokenModel";
 import type { JwtPayload } from "jsonwebtoken"
+import {TokenDomainService} from "../../core/services/TokenDomainService";
 
-const tokenRepository = PostgresDataSource.getRepository(Token);
 
 class TokenInfrastructureService{
+
     generateTokens(payload: any) {
         const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET || '', {expiresIn: '1h'})
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || '', {expiresIn: '30d'})
@@ -33,30 +34,31 @@ class TokenInfrastructureService{
     }
 
     async saveToken(userId: any, refreshToken: any){
-        const tokenData = await tokenRepository.findOne({where: {
+        const tokenData = await this.tokenRepository.findOne({where: {
                 user: {
                     id: userId
                 }
             }})
         if(tokenData){
             tokenData.refreshToken = refreshToken;
-            return tokenRepository.save(tokenData);
+            return this.tokenRepository.save(tokenData);
         }
-        const token = await tokenRepository.create({user: userId, refreshToken})
-        await tokenRepository.save(token)
+        const token = await this.tokenRepository.create({user: userId, refreshToken})
+        await this.tokenRepository.save(token)
         return token;
     }
 
     async removeToken(refreshToken: any){
-        const tokenData = await tokenRepository.delete({refreshToken})
+        const tokenData = await this.tokenRepository.delete({refreshToken})
         return tokenData;
     }
 
     async findToken(refreshToken: any){
-        const tokenData = await tokenRepository.findOne({where: {refreshToken}})
+        const tokenData = await this.tokenRepository.findOne({where: {refreshToken}})
         return tokenData;
     }
 
 }
 
-export default new TokenInfrastructureService()
+const typeService = new TokenInfrastructureService(PostgresDataSource.getRepository(Token));
+export default typeService;
