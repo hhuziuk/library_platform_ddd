@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Token} from "../db/entities/TokenModel";
+import {Token} from "../db/PGentities/TokenModel";
 import type { JwtPayload } from "jsonwebtoken"
 import {TokenDomainService} from "../../core/services/TokenDomainService";
 import {TypeDomainService} from "../../core/services/TypeDomainService";

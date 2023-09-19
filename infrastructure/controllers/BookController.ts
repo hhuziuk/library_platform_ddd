@@ -7,7 +7,7 @@ import path from "path";
 import logger from "../../tools/logger";
 import {UploadedFile} from "express-fileupload";
 import BookInfrastructureService from "../services/BookInfrastructureService";
-import {Book} from "../db/entities/BookModel";
+import {Book} from "../db/PGentities/BookModel";
 
 class BookController{
     constructor(readonly bookService: any = BookInfrastructureService) {}

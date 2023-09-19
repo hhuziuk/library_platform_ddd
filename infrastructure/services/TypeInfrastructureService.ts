@@ -1,5 +1,5 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Type} from "../db/entities/TypeModel";
+import {Type} from "../db/PGentities/TypeModel";
 import ApiError from "../exceptions/Api-Error";
 import {TypeDomainService} from "../../core/services/TypeDomainService";
 

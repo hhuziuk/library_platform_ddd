@@ -1,11 +1,10 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {BookEntity} from "../db/entities/BookModel";
+import {Book} from "../db/PGentities/BookModel";
 import ApiError from "../exceptions/Api-Error";
 import logger from "../../tools/logger";
 import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
 import {BookDomainService} from "../../core/services/BookDomainService";
 
-//const bookRepository = PostgresDataSource.getRepository(BookEntity);
 class BookInfrastructureService{
     constructor(readonly bookRepository: any = new BookDomainService(bookRepository)) {}
     async create (name: string, author: string, description: string, file: string, ISBN: string,
@@ -47,5 +46,5 @@ class BookInfrastructureService{
 
 }
 
-const bookService = new BookInfrastructureService(PostgresDataSource.getRepository(BookEntity));
+const bookService = new BookInfrastructureService(PostgresDataSource.getRepository(Book));
 export default bookService;

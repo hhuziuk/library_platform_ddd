@@ -1,9 +1,8 @@
 import {Response, Request, NextFunction} from "express";
 import {plainToClass} from "class-transformer";
-import {Publisher} from "../db/entities/PublisherModel";
+import {Publisher} from "../db/PGentities/PublisherModel";
 import {validate} from "class-validator";
 import ApiError from "../exceptions/Api-Error";
-//import {PublisherDomainService} from "../../core/services/PublisherDomainService";
 import PublisherInfrastructureService from "../services/PublisherInfrastructureService";
 
 class PublisherController{

@@ -1,5 +1,5 @@
 import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
-import {User} from "../db/entities/UserModel";
+import {User} from "../db/PGentities/UserModel";
 import {PostgresDataSource} from "../../tools/PGconnect";
 import bcrypt from "bcrypt";
 import {v4} from 'uuid'
@@ -7,7 +7,7 @@ import mailService from "./MailService";
 import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
-import {Book} from "../db/entities/BookModel";
+import {Book} from "../db/PGentities/BookModel";
 
 
 class UserInfrastructureService {

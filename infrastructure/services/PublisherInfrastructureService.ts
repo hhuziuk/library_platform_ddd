@@ -1,8 +1,6 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Publisher} from "../db/entities/PublisherModel";
+import {Publisher} from "../db/PGentities/PublisherModel";
 import ApiError from "../exceptions/Api-Error";
-import {Token} from "../db/entities/TokenModel";
-import {TokenDomainService} from "../../core/services/TokenDomainService";
 import {PublisherDomainService} from "../../core/services/PublisherDomainService";
 
 class PublisherInfrastructureService{

@@ -1,8 +1,4 @@
 import {BookRepository} from "../repositories/BookRepository/BookRepository";
-import {Type} from "../domain/Type";
-import {Publisher} from "../domain/Publisher";
-import {WishListBook} from "../domain/WishListBook";
-import {UserDto} from "../repositories/UserRepository/dto/UserDto";
 import {Book} from "../domain/Book";
 
 
