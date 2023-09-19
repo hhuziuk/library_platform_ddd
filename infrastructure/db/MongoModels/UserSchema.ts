@@ -1,4 +1,4 @@
-import mongoose, {Schema} from 'mongoose';
+import {model, Schema} from 'mongoose';
 import Boolean = module
 import * as module from "module";
 import isEmail from 'validator/lib/isISBN';
@@ -40,10 +40,10 @@ const UserSchema = new Schema({
         type: String
     },
     wishlist: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Wishlist',
     },
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = model('User', UserSchema);
 export default User;

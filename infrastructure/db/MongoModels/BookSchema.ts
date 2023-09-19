@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import {model, Schema} from 'mongoose';
 import isISBN from 'validator/lib/isISBN';
 
-const BookSchema = new mongoose.Schema({
+const BookSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -53,21 +53,21 @@ const BookSchema = new mongoose.Schema({
         required: true,
     },
     type: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Type',
     },
     publisher: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Publisher',
     },
     wishlistBooks: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'WishlistBook',
         },
     ],
 });
 
-const Book = mongoose.model('Book', BookSchema);
+const Book = model('Book', BookSchema);
 
 export default Book;

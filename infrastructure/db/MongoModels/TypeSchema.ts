@@ -1,4 +1,4 @@
-import mongoose, {Schema} from 'mongoose';
+import {model, Schema} from 'mongoose';
 
 const TypeSchema = new Schema({
     name: {
@@ -28,6 +28,6 @@ const TypeSchema = new Schema({
     ],
 });
 
-const Type = mongoose.model('Type', TypeSchema);
+const Type = model('Type', TypeSchema);
 
 export default Type;
