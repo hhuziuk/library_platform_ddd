@@ -7,7 +7,7 @@ import mailService from "./MailService";
 import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
-import {BookEntity} from "../db/entities/BookModel";
+import {Book} from "../db/entities/BookModel";
 
 
 class UserInfrastructureService {

@@ -1,28 +1,29 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
 import {Type} from "../db/entities/TypeModel";
 import ApiError from "../exceptions/Api-Error";
+import {TypeDomainService} from "../../core/services/TypeDomainService";
 
-const typeRepository = PostgresDataSource.getRepository(Type);
 
 class TypeInfrastructureService{
+    constructor(readonly typeRepository: any = new TypeDomainService(typeRepository)) {}
     async create (name: string){
-        const userType = await typeRepository.findOne({where: {name}})
+        const userType = await this.typeRepository.findOne({where: {name}})
         if(userType){
             throw ApiError.BadRequest(`The same type already exists`)
         }
-        const type = await typeRepository.create({name})
-        await typeRepository.save(type)
+        const type = await this.typeRepository.create({name})
+        await this.typeRepository.save(type)
         return type;
     }
     async getAll (){
-        const types = await typeRepository.find()
+        const types = await this.typeRepository.find()
         return types;
     }
     async getOne (id: number){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
-        const type = typeRepository.findOneBy({id})
+        const type = this.typeRepository.findOneBy({id})
         return type
 
     }
@@ -31,10 +32,11 @@ class TypeInfrastructureService{
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
-        const type = typeRepository.delete({id})
+        const type = this.typeRepository.delete({id})
         return {type}
     }
 
 }
 
-export default new TypeInfrastructureService();
+const typeService = new TypeInfrastructureService(PostgresDataSource.getRepository(Type));
+export default typeService;
