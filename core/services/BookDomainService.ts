@@ -17,8 +17,8 @@ export class BookDomainService implements BookRepository{
         return createdBook;
     }
 
-    async getAllBooks() {
-        return this.bookRepository.getAllBooks();
+    async getAll() {
+        return this.bookRepository.getAll();
     }
 
     async findOne(object: object) {
@@ -33,12 +33,12 @@ export class BookDomainService implements BookRepository{
         return this.bookRepository.create(object);
     }
 
-    async getBookById(id: number) {
-        return this.bookRepository.getBookById(id);
+    async getById(id: number) {
+        return this.bookRepository.getById(id);
     }
 
-    async deleteBook(id: number) {
-        return this.bookRepository.deleteBook(id);
+    async delete(id: number) {
+        return this.bookRepository.delete(id);
     }
 }
 

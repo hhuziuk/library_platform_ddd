@@ -1,5 +1,5 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Publisher} from "../db/PGentities/PublisherModel";
+import {Publisher} from "../db/PostgresEntities/PublisherModel";
 import ApiError from "../exceptions/Api-Error";
 import {PublisherDomainService} from "../../core/services/PublisherDomainService";
 

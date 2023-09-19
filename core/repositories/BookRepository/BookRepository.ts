@@ -13,11 +13,11 @@ export interface BookRepository {
         publisherId: number
 
     ): Promise<User>;
-    getAllBooks(): Promise<Book[]>;
+    getAll(): Promise<Book[]>;
     create(object: object): Promise<Book>;
     save(book: Book): Promise<Book>;
     findOne(object: object): Promise<Book>;
-    getBookById(id: number): Promise<Book | null>;
-    deleteBook(id: number): Promise<void>;
+    getById(id: number): Promise<Book | null>;
+    delete(id: number): Promise<void>;
 
 }

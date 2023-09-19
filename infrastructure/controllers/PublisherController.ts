@@ -1,6 +1,6 @@
 import {Response, Request, NextFunction} from "express";
 import {plainToClass} from "class-transformer";
-import {Publisher} from "../db/PGentities/PublisherModel";
+import {Publisher} from "../db/PostgresEntities/PublisherModel";
 import {validate} from "class-validator";
 import ApiError from "../exceptions/Api-Error";
 import PublisherInfrastructureService from "../services/PublisherInfrastructureService";

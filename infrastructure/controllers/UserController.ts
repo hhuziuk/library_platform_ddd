@@ -1,6 +1,6 @@
 import {Response, Request, NextFunction} from "express";
 import UserInfrastructureService from "../services/UserInfrastructureService";
-import {User} from "../db/PGentities/UserModel";
+import {User} from "../db/PostgresEntities/UserModel";
 import { validate } from 'class-validator';
 import ApiError from "../exceptions/Api-Error";
 import {plainToClass} from "class-transformer";

@@ -1,7 +1,7 @@
 import {Response, Request, NextFunction} from "express";
 import TypeInfrastructureService from "../services/TypeInfrastructureService";
 import {plainToClass} from "class-transformer";
-import {Type} from "../db/PGentities/TypeModel";
+import {Type} from "../db/PostgresEntities/TypeModel";
 import {validate} from "class-validator";
 import ApiError from "../exceptions/Api-Error";
 
