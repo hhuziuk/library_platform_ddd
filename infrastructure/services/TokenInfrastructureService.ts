@@ -3,10 +3,11 @@ import {PostgresDataSource} from "../../tools/PGconnect";
 import {Token} from "../db/entities/TokenModel";
 import type { JwtPayload } from "jsonwebtoken"
 import {TokenDomainService} from "../../core/services/TokenDomainService";
+import {TypeDomainService} from "../../core/services/TypeDomainService";
 
 
 class TokenInfrastructureService{
-
+    constructor(readonly tokenRepository: any = new TokenDomainService(tokenRepository)) {}
     generateTokens(payload: any) {
         const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET || '', {expiresIn: '1h'})
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || '', {expiresIn: '30d'})
