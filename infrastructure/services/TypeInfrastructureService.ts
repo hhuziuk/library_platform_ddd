@@ -1,9 +1,9 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Type} from "../db/PostgresEntities/TypeModel";
+import {Type} from "../db/entities/PostgresEntities/TypeModel";
 import ApiError from "../exceptions/Api-Error";
 import {TypeDomainService} from "../../core/services/TypeDomainService";
-import TokenSchema from "../db/MongoSchemas/TokenSchema";
-import TypeSchema from "../db/MongoSchemas/TypeSchema";
+import TokenSchema from "../db/entities/MongoSchemas/TokenSchema";
+import TypeSchema from "../db/entities/MongoSchemas/TypeSchema";
 
 
 class TypeInfrastructureService{
@@ -39,5 +39,5 @@ class TypeInfrastructureService{
     }
 
 }
-
+//export default new TokenInfrastructureService(PostgresDataSource.getRepository(Token));
 export default new TypeInfrastructureService(TypeSchema);

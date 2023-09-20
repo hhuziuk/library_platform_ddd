@@ -8,6 +8,9 @@ export class UserDomainService implements UserRepository{
         const createdUser = await this.userRepository.create(email, username, password, role);
         return createdUser;
     }
+    async save(user: any){
+        return this.userRepository.save(user);
+    }
 
     async getAll() {
         return this.userRepository.getAll();

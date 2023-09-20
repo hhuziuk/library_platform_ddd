@@ -1,10 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn, JoinTable, ManyToMany, OneToMany} from "typeorm";
-import {
-    MaxLength,
-    MinLength
-} from "class-validator"
-import {Type} from "./TypeModel";
+// Publisher.ts
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import { MaxLength, MinLength } from 'class-validator';
 import {Book} from "./BookModel";
+import {Type} from "./TypeModel";
 
 
 @Entity('Publisher')
@@ -12,7 +10,7 @@ export class Publisher {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({nullable: false, unique: true})
+    @Column({ nullable: false, unique: true })
     @MinLength(1, {
         message: 'name is too short',
     })
@@ -21,12 +19,10 @@ export class Publisher {
     })
     public name: string;
 
-    //
-
     @OneToMany(() => Book, book => book.publisher)
     books: Book[];
 
     @ManyToMany(() => Type, type => type.publishers)
+    @JoinTable()
     types: Type[];
-
 }

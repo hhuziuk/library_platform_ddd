@@ -1,12 +1,12 @@
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 import path from "path";
-import {User} from "./infrastructure/db/PostgresEntities/UserModel";
-import {Book} from "./infrastructure/db/PostgresEntities/BookModel";
-import {Publisher} from "./infrastructure/db/PostgresEntities/PublisherModel";
-import {Type} from "./infrastructure/db/PostgresEntities/TypeModel";
-import {Token} from "./infrastructure/db/PostgresEntities/TokenModel";
-import {WishlistBook} from "./infrastructure/db/PostgresEntities/WishListBooksModel";
-import {Wishlist} from "./infrastructure/db/PostgresEntities/WishListModel";
+import {User} from "./infrastructure/db/entities/PostgresEntities/UserModel";
+import {Book} from "./infrastructure/db/entities/PostgresEntities/BookModel";
+import {Publisher} from "./infrastructure/db/entities/PostgresEntities/PublisherModel";
+import {Type} from "./infrastructure/db/entities/PostgresEntities/TypeModel";
+import {Token} from "./infrastructure/db/entities/PostgresEntities/TokenModel";
+import {WishlistBook} from "./infrastructure/db/entities/PostgresEntities/WishListBooksModel";
+import {Wishlist} from "./infrastructure/db/entities/PostgresEntities/WishListModel";
 
 const config: PostgresConnectionOptions = {
     type: 'postgres',

@@ -1,12 +1,17 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, OneToMany} from "typeorm";
+// Book.ts
 import {
-    IsISBN,
-    MaxLength,
-    MinLength
-} from "class-validator"
-import {WishlistBook} from "./WishListBooksModel";
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToOne,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+} from 'typeorm';
+import { IsISBN, MaxLength } from 'class-validator';
 import {Type} from "./TypeModel";
 import {Publisher} from "./PublisherModel";
+import {WishlistBook} from "./WishListBooksModel";
 
 
 @Entity('Book')
@@ -14,19 +19,19 @@ export class Book {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     @MaxLength(80, {
         message: 'name is too long',
     })
     public name: string;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     @MaxLength(80, {
         message: 'author\'s is too long',
     })
     public author: string;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     @MaxLength(100, {
         message: 'description is too long',
     })
@@ -35,18 +40,16 @@ export class Book {
     @Column()
     public file: string;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     @IsISBN()
     public ISBN: string;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     public typeId: number;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     public publisherId: number;
 
-
-    //
     @ManyToOne(() => Type, type => type.books)
     type: Type;
 
@@ -55,5 +58,4 @@ export class Book {
 
     @OneToMany(() => WishlistBook, wishlistBook => wishlistBook.book)
     wishlistBooks: WishlistBook[];
-
 }

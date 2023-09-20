@@ -1,21 +1,22 @@
 import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
-import {User} from "../db/PostgresEntities/UserModel";
-import {PostgresDataSource} from "../../tools/PGconnect";
 import bcrypt from "bcrypt";
 import {v4} from 'uuid'
 import mailService from "./MailService";
 import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
-import {Book} from "../db/PostgresEntities/BookModel";
-import TypeSchema from "../db/MongoSchemas/TypeSchema";
-import UserSchema from "../db/MongoSchemas/UserSchema";
+import UserSchema from "../db/entities/MongoSchemas/UserSchema";
+import {PostgresDataSource} from "../../tools/PGconnect";
+import {User} from "../db/entities/PostgresEntities/UserModel";
+import logger from "../../tools/logger";
 
 
 class UserInfrastructureService {
     constructor(readonly userRepository: any = new UserDomainService(userRepository)) {}
     async registration(email: string, username: string, password: string, role: string) {
-        const candidate = await this.userRepository.findOne({where: {email}})
+        const candidate = await this.userRepository.findOne({
+            $or: [{ email }, { username }],
+        });
         if (candidate) {
             throw ApiError.BadRequest(`User with the same ${email} already exists`)
         }
@@ -42,14 +43,13 @@ class UserInfrastructureService {
             throw ApiError.BadRequest("activation link is not correct")
         }
         user.isActivated = true;
-        await this.userRepository.save(user);
+        await this.userRepository.save(user)
     }
 
     async login(email: string, password: string) {
-        //const user = await userRepository.findOne({where: {email}})
         const user = await this.userRepository.findOne({
-            where: {email}
-        })
+            where: { email },
+        });
         if (!user) {
             throw ApiError.BadRequest("User with this email does not exist")
         }
@@ -107,3 +107,4 @@ class UserInfrastructureService {
     }
 }
 export default new UserInfrastructureService(UserSchema);
+//export default new UserInfrastructureService(PostgresDataSource.getRepository(User));

@@ -1,5 +1,7 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from "typeorm";
+// Token.ts
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import {User} from "./UserModel";
+
 
 @Entity('Token')
 export class Token {
@@ -10,6 +12,6 @@ export class Token {
     @JoinColumn()
     public user: User;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     public refreshToken: string;
 }

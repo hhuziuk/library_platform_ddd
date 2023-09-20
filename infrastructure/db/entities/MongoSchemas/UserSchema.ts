@@ -1,5 +1,5 @@
 import {model, Schema} from 'mongoose';
-import isEmail from 'validator/lib/isISBN';
+import isEmail from 'validator/lib/isEmail';
 
 const UserSchema = new Schema({
     username: {
@@ -17,7 +17,6 @@ const UserSchema = new Schema({
             validator: (value) => isEmail(value),
             message: 'Invalid email',
         },
-
     },
     role: {
         type: String,
@@ -27,8 +26,8 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
-        minLength: [8, 'password is too short'],
-        maxLength: [30, 'password is too long'],
+        minLength: [5, 'password is too short'],
+        maxLength: [100, 'password is too long'],
     },
     isActivated: {
         type: Boolean,

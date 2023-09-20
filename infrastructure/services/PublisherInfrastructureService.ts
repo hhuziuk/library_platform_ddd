@@ -1,8 +1,8 @@
 import {PostgresDataSource} from "../../tools/PGconnect";
-import {Publisher} from "../db/PostgresEntities/PublisherModel";
+import {Publisher} from "../db/entities/PostgresEntities/PublisherModel";
 import ApiError from "../exceptions/Api-Error";
 import {PublisherDomainService} from "../../core/services/PublisherDomainService";
-import PublisherSchema from "../db/MongoSchemas/PublisherSchema";
+import PublisherSchema from "../db/entities/MongoSchemas/PublisherSchema";
 
 class PublisherInfrastructureService{
     constructor(readonly publisherRepository: any = new PublisherDomainService(publisherRepository)) {}
@@ -36,5 +36,5 @@ class PublisherInfrastructureService{
     }
 
 }
-
+//export default new PublisherInfrastructureService(PostgresDataSource.getRepository(Publisher));
 export default new PublisherInfrastructureService(PublisherSchema);
