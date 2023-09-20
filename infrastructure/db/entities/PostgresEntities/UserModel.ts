@@ -1,18 +1,13 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from "typeorm";
-import {
-    IsEmail,
-    MaxLength,
-    MinLength
-} from "class-validator"
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { IsEmail, MaxLength, MinLength } from 'class-validator';
 import {Wishlist} from "./WishListModel";
-
 
 @Entity('User')
 export class User {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({nullable: false, unique: true})
+    @Column({ nullable: false, unique: true })
     @MinLength(1, {
         message: 'username is too short',
     })
@@ -21,7 +16,7 @@ export class User {
     })
     public username: string;
 
-    @Column({nullable: false})
+    @Column({ nullable: false })
     @MinLength(4, {
         message: 'password is too short',
     })
@@ -30,7 +25,7 @@ export class User {
     })
     public password: string;
 
-    @Column({nullable: false, unique: true})
+    @Column({ nullable: false, unique: true })
     @IsEmail()
     public email: string;
 
@@ -40,7 +35,7 @@ export class User {
     @Column()
     public activationLink: string;
 
-    @Column({ default: "USER" })
+    @Column({ default: 'USER' })
     public role: string;
 
     @OneToOne(() => Wishlist)
