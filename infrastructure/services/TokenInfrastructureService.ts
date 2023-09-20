@@ -3,6 +3,8 @@ import {PostgresDataSource} from "../../tools/PGconnect";
 import {Token} from "../db/PostgresEntities/TokenModel";
 import type { JwtPayload } from "jsonwebtoken"
 import {TokenDomainService} from "../../core/services/TokenDomainService";
+import PublisherSchema from "../db/MongoSchemas/PublisherSchema";
+import TokenSchema from "../db/MongoSchemas/TokenSchema";
 
 
 class TokenInfrastructureService{
@@ -59,6 +61,4 @@ class TokenInfrastructureService{
     }
 
 }
-
-const typeService = new TokenInfrastructureService(PostgresDataSource.getRepository(Token));
-export default typeService;
+export default new TokenInfrastructureService(TokenSchema);

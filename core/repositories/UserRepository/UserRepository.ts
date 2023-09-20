@@ -4,14 +4,14 @@ import {UserDto} from "./dto/UserDto";
 import {User} from "../../domain/User";
 
 export interface UserRepository {
-    createUser(
+    create(
         email: string,
         username: string,
         password: string,
         role: string
     ): Promise<UserDto>;
-    getAllUsers(): Promise<User[]>;
-    getUserById(id: number): Promise<User | null>;
-    deleteUser(id: number): Promise<void>;
+    getAll(): Promise<any>;
+    getById(id: number): Promise<any>;
+    delete(id: number): Promise<any>;
 
 }

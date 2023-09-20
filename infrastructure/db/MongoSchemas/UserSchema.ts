@@ -1,6 +1,4 @@
 import {model, Schema} from 'mongoose';
-import Boolean = module
-import * as module from "module";
 import isEmail from 'validator/lib/isISBN';
 
 const UserSchema = new Schema({

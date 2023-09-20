@@ -4,8 +4,9 @@ import ApiError from "../exceptions/Api-Error";
 import logger from "../../tools/logger";
 import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
 import {BookDomainService} from "../../core/services/BookDomainService";
+import BookSchema from "../db/MongoSchemas/BookSchema";
 
-export class BookInfrastructureService{
+class BookInfrastructureService{
     constructor(readonly bookRepository: any = new BookDomainService(bookRepository)) {}
     async create (name: string, author: string, description: string, file: string, ISBN: string,
                   typeId: number, publisherId: number) {
@@ -46,4 +47,5 @@ export class BookInfrastructureService{
 
 }
 
-
+const bookService = new BookInfrastructureService(BookSchema);
+export default bookService;

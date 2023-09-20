@@ -3,18 +3,18 @@ import {PublisherRepostiory} from "../repositories/PublisherRepository/Publisher
 export class PublisherDomainService implements PublisherRepostiory {
     constructor(private publisherRepository: PublisherRepostiory) {}
 
-    async createPublisher(name: string){
-        const createdPublisher = await this.publisherRepository.createPublisher(name);
+    async create(name: string){
+        const createdPublisher = await this.publisherRepository.create(name);
         return createdPublisher;
     }
-    async getAllPublishers(){
-        return this.publisherRepository.getAllPublishers();
+    async getAll(){
+        return this.publisherRepository.getAll();
     }
-    async getPublisherById(id: number){
-        return this.publisherRepository.getPublisherById(id);
+    async getById(id: number){
+        return this.publisherRepository.getById(id);
     }
-    async deletePublisher(id: number){
-        return this.publisherRepository.deletePublisher(id);
+    async delete(id: number){
+        return this.publisherRepository.delete(id);
     }
 
 }

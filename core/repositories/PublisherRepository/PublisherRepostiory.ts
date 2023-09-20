@@ -3,8 +3,8 @@ import {Publisher} from "../../domain/Publisher";
 
 
 export interface PublisherRepostiory {
-    createPublisher(name: string): Promise<PublisherDto>;
-    getAllPublishers(): Promise<Publisher[]>;
-    getPublisherById(id: number): Promise<Publisher | null>;
-    deletePublisher(id: number): Promise<void>;
+    create(name: string): Promise<PublisherDto>;
+    getAll(): Promise<Publisher[]>;
+    getById(id: number): Promise<Publisher | null>;
+    delete(id: number): Promise<void>;
 }

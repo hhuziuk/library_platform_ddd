@@ -4,20 +4,20 @@ import {UserRepository} from "../repositories/UserRepository/UserRepository";
 export class UserDomainService implements UserRepository{
     constructor(private userRepository: UserRepository) {}
 
-    async createUser(email: string, username: string, password: string, role: string) {
-        const createdUser = await this.userRepository.createUser(email, username, password, role);
+    async create(email: string, username: string, password: string, role: string) {
+        const createdUser = await this.userRepository.create(email, username, password, role);
         return createdUser;
     }
 
-    async getAllUsers() {
-        return this.userRepository.getAllUsers();
+    async getAll() {
+        return this.userRepository.getAll();
     }
 
-    async getUserById(id: number) {
-        return this.userRepository.getUserById(id);
+    async getById(id: number) {
+        return this.userRepository.getById(id);
     }
 
-    async deleteUser(id: number) {
-        return this.userRepository.deleteUser(id);
+    async delete(id: number) {
+        return this.userRepository.delete(id);
     }
 }

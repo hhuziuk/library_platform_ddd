@@ -8,6 +8,8 @@ import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
 import {Book} from "../db/PostgresEntities/BookModel";
+import TypeSchema from "../db/MongoSchemas/TypeSchema";
+import UserSchema from "../db/MongoSchemas/UserSchema";
 
 
 class UserInfrastructureService {
@@ -104,6 +106,4 @@ class UserInfrastructureService {
         return users;
     }
 }
-
-const userService = new UserInfrastructureService(PostgresDataSource.getRepository(User));
-export default userService;
+export default new UserInfrastructureService(UserSchema);

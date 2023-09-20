@@ -1,12 +1,11 @@
 import express, {RequestHandler} from 'express';
+import bookController from "../controllers/BookController";
 import authMiddleware from "../middleware/AuthMiddleware";
-import {bookControllerPostgres, bookControllerMongo} from "../controllers/BookController";
 const router = express.Router();
 
-
-router.post('/add', authMiddleware as RequestHandler, bookControllerPostgres.create, bookControllerMongo.create)
-router.get('/:id', authMiddleware as RequestHandler, bookControllerPostgres.getOne, bookControllerMongo.getOne)
-router.get('/', authMiddleware as RequestHandler, bookControllerPostgres.getAll, bookControllerMongo.getAll)
-router.delete('/:id', authMiddleware as RequestHandler, bookControllerPostgres.delete, bookControllerMongo.delete)
+router.post('/add', authMiddleware as RequestHandler, bookController.create)
+router.get('/:id', authMiddleware as RequestHandler, bookController.getOne)
+router.get('/', authMiddleware as RequestHandler, bookController.getAll)
+router.delete('/:id', authMiddleware as RequestHandler, bookController.delete)
 
 export default router
