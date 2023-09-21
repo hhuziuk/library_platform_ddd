@@ -62,5 +62,5 @@ class TokenInfrastructureService{
     }
 
 }
-export default new TokenInfrastructureService(TokenSchema);
-//export default new TokenInfrastructureService(PostgresDataSource.getRepository(Token));
+//export default new TokenInfrastructureService(TokenSchema);
+export default new TokenInfrastructureService(PostgresDataSource.getRepository(Token));

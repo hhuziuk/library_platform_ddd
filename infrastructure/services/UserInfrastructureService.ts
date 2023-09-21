@@ -5,18 +5,13 @@ import mailService from "./MailService";
 import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
-import UserSchema from "../db/entities/MongoSchemas/UserSchema";
-import {PostgresDataSource} from "../../tools/PGconnect";
-import {User} from "../db/entities/PostgresEntities/UserModel";
-import logger from "../../tools/logger";
+import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
 
 
 class UserInfrastructureService {
     constructor(readonly userRepository: any = new UserDomainService(userRepository)) {}
     async registration(email: string, username: string, password: string, role: string) {
-        const candidate = await this.userRepository.findOne({
-            $or: [{ email }, { username }],
-        });
+        const candidate = await this.userRepository.findOne({ email });
         if (candidate) {
             throw ApiError.BadRequest(`User with the same ${email} already exists`)
         }
@@ -38,7 +33,7 @@ class UserInfrastructureService {
     }
 
     async activate(activationLink: any) {
-        const user = await this.userRepository.findOne({where: {activationLink}})
+        const user = await this.userRepository.findOne({activationLink})
         if (!user) {
             throw ApiError.BadRequest("activation link is not correct")
         }
@@ -47,9 +42,7 @@ class UserInfrastructureService {
     }
 
     async login(email: string, password: string) {
-        const user = await this.userRepository.findOne({
-            where: { email },
-        });
+        const user = await this.userRepository.findOne({ email });
         if (!user) {
             throw ApiError.BadRequest("User with this email does not exist")
         }
@@ -81,15 +74,7 @@ class UserInfrastructureService {
         if(!userData || !tokenFromDatabase){
             throw ApiError.UnauthorizedError()
         }
-        const user = await this.userRepository.findOneOrFail({
-            where: {id: userData.id},
-            select: {
-                id: true,
-                email: true,
-                username: true,
-                isActivated: true
-            }
-        })
+        const user = await this.userRepository.findOne({id: userData.id})
         const userDto = new UserDto(user)
         const tokens = tokenInfrastructureService.generateTokens({...userDto})
 
@@ -106,5 +91,5 @@ class UserInfrastructureService {
         return users;
     }
 }
-export default new UserInfrastructureService(UserSchema);
-//export default new UserInfrastructureService(PostgresDataSource.getRepository(User));
+//export default new UserInfrastructureService(UserSchema);
+export default new UserInfrastructureService(PostgresUserRepository);
