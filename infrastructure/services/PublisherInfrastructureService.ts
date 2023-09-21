@@ -1,6 +1,8 @@
 import ApiError from "../exceptions/Api-Error";
 import {PublisherDomainService} from "../../core/services/PublisherDomainService";
 import PostgresPublisherRepository from "../db/repositories/PostgresRepository/PostgresPublisherRepository";
+import MongoTypeRepository from "../db/repositories/MongoRepository/MongoTypeRepository";
+import MongoPublisherRepository from "../db/repositories/MongoRepository/MongoPublisherRepository";
 
 class PublisherInfrastructureService{
     constructor(readonly publisherRepository: any = new PublisherDomainService(publisherRepository)) {}
@@ -34,5 +36,5 @@ class PublisherInfrastructureService{
     }
 
 }
-//export default new PublisherInfrastructureService(PublisherSchema);
-export default new PublisherInfrastructureService(PostgresPublisherRepository);
+export default new PublisherInfrastructureService(MongoPublisherRepository);
+//export default new PublisherInfrastructureService(PostgresPublisherRepository);

@@ -1,6 +1,8 @@
 import ApiError from "../exceptions/Api-Error";
 import {TypeDomainService} from "../../core/services/TypeDomainService";
 import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
+import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
+import MongoTypeRepository from "../db/repositories/MongoRepository/MongoTypeRepository";
 
 
 class TypeInfrastructureService{
@@ -37,5 +39,5 @@ class TypeInfrastructureService{
 
 }
 
-//export default new TypeInfrastructureService(TypeSchema);
-export default new TypeInfrastructureService(PostgresTypeRepository);
+export default new TypeInfrastructureService(MongoTypeRepository);
+//export default new TypeInfrastructureService(PostgresTypeRepository);
