@@ -1,5 +1,5 @@
 <a name="readme-top"></a>
-# Book collection application(with a Domain-driven design approach)
+# Book-collection backend application(with a Domain-driven design approach)
 
 <!-- TABLE OF CONTENTS -->
 <details>
