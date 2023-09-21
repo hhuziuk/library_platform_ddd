@@ -23,7 +23,7 @@ class PostgresTypeRepository {
     }
 
     async delete(id: number){
-        return PostgresDataSource.getRepository(Type).findOneBy({id})
+        return PostgresDataSource.getRepository(Type).delete({id})
     }
 
 }

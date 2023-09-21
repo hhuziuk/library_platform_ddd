@@ -6,6 +6,8 @@ import {TokenDomainService} from "../../core/services/TokenDomainService";
 import PublisherSchema from "../db/entities/MongoSchemas/PublisherSchema";
 import TokenSchema from "../db/entities/MongoSchemas/TokenSchema";
 import {User} from "../db/entities/PostgresEntities/UserModel";
+import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
+import PostgresTokenRepository from "../db/repositories/PostgresRepository/PostgresTokenRepository";
 
 
 class TokenInfrastructureService{
@@ -63,4 +65,4 @@ class TokenInfrastructureService{
 
 }
 //export default new TokenInfrastructureService(TokenSchema);
-export default new TokenInfrastructureService(PostgresDataSource.getRepository(Token));
+export default new TokenInfrastructureService(PostgresTokenRepository);
