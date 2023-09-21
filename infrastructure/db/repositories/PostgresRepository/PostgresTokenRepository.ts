@@ -22,7 +22,7 @@ class PostgresTokenRepository {
         return PostgresDataSource.getRepository(Type).findOneBy({id})
     }
 
-    async removeToken(refreshToken: string) {
+    async removeToken(refreshToken: object) {
         return PostgresDataSource.getRepository(Type).delete(refreshToken);
     }
 }

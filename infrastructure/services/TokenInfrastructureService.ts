@@ -39,11 +39,11 @@ class TokenInfrastructureService{
     }
 
     async saveToken(userId: any, refreshToken: any){
-        const tokenData = await this.tokenRepository.findOne({where: {
+        const tokenData = await this.tokenRepository.findOne({
                 user: {
                     id: userId
                 }
-            }})
+            })
         if(tokenData){
             tokenData.refreshToken = refreshToken;
             return this.tokenRepository.save(tokenData);
@@ -59,7 +59,7 @@ class TokenInfrastructureService{
     }
 
     async findToken(refreshToken: any){
-        const tokenData = await this.tokenRepository.findOne({where: {refreshToken}})
+        const tokenData = await this.tokenRepository.findOne({refreshToken})
         return tokenData;
     }
 
