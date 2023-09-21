@@ -20,7 +20,7 @@ class PostgresBookRepository {
     }
 
     async delete(id: number){
-        return PostgresDataSource.getRepository(Book).delete({id})
+        return PostgresDataSource.getRepository(Book).delete({id});
     }
 }
 

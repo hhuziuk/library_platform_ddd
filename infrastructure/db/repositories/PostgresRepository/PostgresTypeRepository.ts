@@ -18,12 +18,8 @@ class PostgresTypeRepository {
         return PostgresDataSource.getRepository(Type).find()
     }
 
-    async findOneBy(id: number){
-        return PostgresDataSource.getRepository(Type).findOneBy({id})
-    }
-
     async delete(id: number){
-        return PostgresDataSource.getRepository(Type).delete({id})
+        return PostgresDataSource.getRepository(Type).delete(id)
     }
 
 }

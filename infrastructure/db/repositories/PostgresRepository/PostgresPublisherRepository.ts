@@ -1,6 +1,7 @@
 import {PostgresDataSource} from "../../../../tools/PGconnect";
 import {Type} from "../../entities/PostgresEntities/TypeModel";
 import {Publisher} from "../../entities/PostgresEntities/PublisherModel";
+import {Book} from "../../entities/PostgresEntities/BookModel";
 
 class PostgresPublisherRepository {
     async findOne(data: object){
@@ -18,12 +19,8 @@ class PostgresPublisherRepository {
         return PostgresDataSource.getRepository(Publisher).find()
     }
 
-    async findOneBy(id: number){
-        return PostgresDataSource.getRepository(Publisher).findOneBy({id})
-    }
-
     async delete(id: number){
-        return PostgresDataSource.getRepository(Publisher).delete({id})
+        return PostgresDataSource.getRepository(Publisher).delete(id)
     }
 
 }

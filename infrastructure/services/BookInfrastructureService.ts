@@ -3,12 +3,13 @@ import logger from "../../tools/logger";
 import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
 import {BookDomainService} from "../../core/services/BookDomainService";
 import MongoBookRepository from "../db/repositories/MongoRepository/MongoBookRepository";
+import PostgresBookRepository from "../db/repositories/PostgresRepository/PostgresBookRepository";
 
 class BookInfrastructureService{
     constructor(readonly bookRepository: any = new BookDomainService(bookRepository)) {}
     async create (name: string, author: string, description: string, file: string, ISBN: string,
                   typeId: any, publisherId: any) {
-        const userBook = await this.bookRepository.findOne({where: {ISBN}})
+        const userBook = await this.bookRepository.findOne({ISBN})
         if(userBook){
             logger.info("yes")
             throw ApiError.BadRequest(`The same book already exists`)
@@ -44,6 +45,6 @@ class BookInfrastructureService{
     }
 
 }
-export default new BookInfrastructureService(MongoBookRepository);
+//export default new BookInfrastructureService(MongoBookRepository);
 
-//export default new BookInfrastructureService(PostgresBookRepository);
+export default new BookInfrastructureService(PostgresBookRepository);

@@ -65,5 +65,5 @@ class TokenInfrastructureService{
     }
 
 }
-export default new TokenInfrastructureService(MongoUserRepository);
-// export default new TokenInfrastructureService(PostgresTokenRepository);
+//export default new TokenInfrastructureService(MongoUserRepository);
+ export default new TokenInfrastructureService(PostgresTokenRepository);

@@ -94,5 +94,5 @@ class UserInfrastructureService {
         return users;
     }
 }
-export default new UserInfrastructureService(MongoUserRepository);
-//export default new UserInfrastructureService(PostgresUserRepository);
+//export default new UserInfrastructureService(MongoUserRepository);
+export default new UserInfrastructureService(PostgresUserRepository);
