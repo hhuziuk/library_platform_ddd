@@ -24,7 +24,7 @@ class BookController{
             logger.info(fileName)
             await file.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-            const book = await this.bookService.createBook(name, author, description, fileName, ISBN, typeId, publisherId)
+            const book = await BookInfrastructureService.create(name, author, description, fileName, ISBN, typeId, publisherId)
             return res.json(book)
         } catch(e){
             next(e);

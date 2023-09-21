@@ -2,8 +2,6 @@ import ApiError from "../exceptions/Api-Error";
 import logger from "../../tools/logger";
 import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
 import {BookDomainService} from "../../core/services/BookDomainService";
-import PostgresBookRepository from "../db/repositories/PostgresRepository/PostgresBookRepository";
-import MongoPublisherRepository from "../db/repositories/MongoRepository/MongoPublisherRepository";
 import MongoBookRepository from "../db/repositories/MongoRepository/MongoBookRepository";
 
 class BookInfrastructureService{

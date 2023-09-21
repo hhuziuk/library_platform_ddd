@@ -29,11 +29,11 @@ const BookSchema = new Schema({
         },
     },
     typeId: {
-        type: Number,
+        type: String,
         required: true,
     },
     publisherId: {
-        type: Number,
+        type: String,
         required: true,
     },
     type: {
