@@ -1,5 +1,6 @@
 
 import Publisher from "../../entities/MongoSchemas/PublisherSchema";
+import Type from "../../entities/MongoSchemas/TypeSchema";
 
 class MongoPublisherRepository {
     async findOne(data) {
@@ -18,11 +19,11 @@ class MongoPublisherRepository {
     }
 
     async findOneBy(id) {
-        return Publisher.findById(id);
+        return Type.findOne({ _id: id });
     }
 
     async delete(id) {
-        return Publisher.findByIdAndDelete(id);
+        return Type.deleteOne({ _id: id });
     }
 }
 
