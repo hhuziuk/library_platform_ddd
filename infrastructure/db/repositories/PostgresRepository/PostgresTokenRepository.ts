@@ -7,23 +7,23 @@ class PostgresTokenRepository {
         return PostgresDataSource.getRepository(Token).findOne({where: data})
     }
     async create(data: object){
-        return PostgresDataSource.getRepository(Type).create(data)
+        return PostgresDataSource.getRepository(Token).create(data)
     }
 
     async save(data: any){
-        return PostgresDataSource.getRepository(Type).save(data)
+        return PostgresDataSource.getRepository(Token).save(data)
     }
 
     async find(){
-        return PostgresDataSource.getRepository(Type).find()
+        return PostgresDataSource.getRepository(Token).find()
     }
 
     async findOneBy(id: number){
-        return PostgresDataSource.getRepository(Type).findOneBy({id})
+        return PostgresDataSource.getRepository(Token).findOneBy({id})
     }
 
     async removeToken(refreshToken: object) {
-        return PostgresDataSource.getRepository(Type).delete(refreshToken);
+        return PostgresDataSource.getRepository(Token).delete(refreshToken);
     }
 }
 

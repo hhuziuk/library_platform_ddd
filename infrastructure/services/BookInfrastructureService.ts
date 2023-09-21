@@ -2,7 +2,7 @@ import ApiError from "../exceptions/Api-Error";
 import logger from "../../tools/logger";
 import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
 import {BookDomainService} from "../../core/services/BookDomainService";
-import BookSchema from "../db/entities/MongoSchemas/BookSchema";
+import PostgresBookRepository from "../db/repositories/PostgresRepository/PostgresBookRepository";
 
 class BookInfrastructureService{
     constructor(readonly bookRepository: any = new BookDomainService(bookRepository)) {}
@@ -44,6 +44,7 @@ class BookInfrastructureService{
     }
 
 }
-//export default new BookInfrastructureService(PostgresDataSource.getRepository(Book));
-const bookService = new BookInfrastructureService(BookSchema);
-export default bookService;
+// const bookService = new BookInfrastructureService(BookSchema);
+// export default bookService;
+
+export default new BookInfrastructureService(PostgresBookRepository);
