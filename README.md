@@ -37,7 +37,7 @@ This project was written as an extension to my previous project. The main idea i
 
 This section describes the technologies and frameworks I used in my project Here are a few examples.
 
-[![Technologies](https://skillicons.dev/icons?i=docker,express,ts,jest,mongodb,postgres,redis,regex&perline=5)](https://skillicons.dev)
+[![Technologies](https://skillicons.dev/icons?i=docker,express,ts,jest,nodejs,mongodb,postgres,redis,regex&perline=5)](https://skillicons.dev)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
