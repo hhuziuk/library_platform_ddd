@@ -5,6 +5,6 @@ import {Publisher} from "../../domain/Publisher";
 export interface PublisherRepostiory {
     create(name: string): Promise<PublisherDto>;
     getAll(): Promise<Publisher[]>;
-    getById(id: number): Promise<Publisher | null>;
-    delete(id: number): Promise<void>;
+    getById(id: any): Promise<Publisher | null>;
+    delete(id: any): Promise<void>;
 }

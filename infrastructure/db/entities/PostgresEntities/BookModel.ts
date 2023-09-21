@@ -1,4 +1,4 @@
-// Book.ts
+
 import {
     Entity,
     Column,

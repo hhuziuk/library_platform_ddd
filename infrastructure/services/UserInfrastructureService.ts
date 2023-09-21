@@ -6,6 +6,8 @@ import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
+import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
+import logger from "../../tools/logger";
 
 
 class UserInfrastructureService {
@@ -46,14 +48,15 @@ class UserInfrastructureService {
         if (!user) {
             throw ApiError.BadRequest("User with this email does not exist")
         }
+
         const comparePassword = await bcrypt.compare(password, user.password)
         if (!comparePassword) {
             throw ApiError.BadRequest("Wrong password")
         }
-        const userDto = new UserDto(user) // id, email, isActivated
+        const userDto = new UserDto(user) // id, email, role, isActivated
         const tokens = tokenInfrastructureService.generateTokens({...userDto})
-
         await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
+
         return {
             ...tokens,
             user: userDto,
@@ -91,5 +94,5 @@ class UserInfrastructureService {
         return users;
     }
 }
-//export default new UserInfrastructureService(UserSchema);
-export default new UserInfrastructureService(PostgresUserRepository);
+export default new UserInfrastructureService(MongoUserRepository);
+//export default new UserInfrastructureService(PostgresUserRepository);

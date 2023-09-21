@@ -9,11 +9,11 @@ class TypeController{
     async create(req: Request, res: Response, next: NextFunction){
         try{
             const {name} = req.body
-            const userType: any = plainToClass(Type, { name })
-            const errors: any = await validate(userType)
-            if (errors.length > 0) {
-                return next(ApiError.BadRequest('validation error', errors))
-            }
+            // const userType: any = plainToClass(Type, { name })
+            // const errors: any = await validate(userType)
+            // if (errors.length > 0) {
+            //     return next(ApiError.BadRequest('validation error', errors))
+            // }
             const type = await TypeInfrastructureService.create(name)
             return res.json(type)
         } catch(e){

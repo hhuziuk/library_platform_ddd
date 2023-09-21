@@ -10,10 +10,10 @@ export class TypeDomainService implements TypeRepository {
     async getAllTypes(){
         return this.typeRepository.getAllTypes();
     }
-    async getTypeById(id: number){
+    async getTypeById(id: any){
         return this.typeRepository.getTypeById(id);
     }
-    async deleteType(id: number){
+    async deleteType(id: any){
         return this.typeRepository.deleteType(id);
     }
 }

@@ -6,15 +6,10 @@ import ApiError from "../exceptions/Api-Error";
 import {plainToClass} from "class-transformer";
 import logger from "../../tools/logger";
 class UserController{
-    constructor(readonly bookService: any = UserInfrastructureService) {}
+    constructor(readonly userService: any = UserInfrastructureService) {}
     async registration(req: Request, res: Response, next: NextFunction){
         try{
             const {email, username, password, role} = req.body
-            const user: any = plainToClass(User, { email, username, password, role})
-            const errors: any = await validate(user)
-            if (errors.length > 0) {
-                return next(ApiError.BadRequest('validation error', errors))
-            }
             const userData = await UserInfrastructureService.registration(email, username, password, role)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
@@ -26,11 +21,6 @@ class UserController{
     async login(req: Request, res: Response, next: NextFunction){
         try{
             const {email, username, password} = req.body
-            const user: any = plainToClass(User, { email, username, password });
-            const errors: any = await validate(user)
-            if (errors.length > 0) {
-                return next(ApiError.BadRequest('validation error', errors))
-            }
             const userData = await UserInfrastructureService.login(email, password)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)

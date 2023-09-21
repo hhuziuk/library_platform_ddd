@@ -6,42 +6,26 @@ const BookSchema = new Schema({
         type: String,
         required: true,
         maxlength: 80,
-        validate: {
-            validator: (value) => {
-                return value.length <= 80;
-            },
-            message: 'Name is too long',
-        },
     },
     author: {
         type: String,
         required: true,
         maxlength: 80,
-        validate: {
-            validator: (value) => {
-                return value.length <= 80;
-            },
-            message: "Author's name is too long",
-        },
     },
     description: {
         type: String,
         required: true,
         maxlength: 100,
-        validate: {
-            validator: (value) => {
-                return value.length <= 100;
-            },
-            message: 'Description is too long',
-        },
     },
     file: String,
     ISBN: {
         type: String,
         required: true,
         validate: {
-            validator: (value) => isISBN(value),
-            message: 'Invalid ISBN',
+            validator: function (value) {
+                return /^(\d{10}|\d{13})$/.test(value);
+            },
+            message: 'Invalid ISBN format',
         },
     },
     typeId: {

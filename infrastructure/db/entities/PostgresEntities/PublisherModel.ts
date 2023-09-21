@@ -1,4 +1,4 @@
-// Publisher.ts
+
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { MaxLength, MinLength } from 'class-validator';
 import {Book} from "./BookModel";

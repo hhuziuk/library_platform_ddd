@@ -1,7 +1,7 @@
 import {Type} from "../../../domain/Type";
 
 export class TypeDto {
-    readonly id: number;
+    readonly id: any;
     readonly name: string;
 
     constructor(type: Type) {

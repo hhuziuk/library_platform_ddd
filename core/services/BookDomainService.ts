@@ -11,8 +11,9 @@ export class BookDomainService implements BookRepository{
         description: string,
         file: string,
         ISBN: string,
-        typeId: number,
-        publisherId: number) {
+        typeId: any,
+        publisherId: any
+    ) {
         const createdBook = await this.bookRepository.createBook(name, author, description, file, ISBN, typeId, publisherId);
         return createdBook;
     }
@@ -33,11 +34,11 @@ export class BookDomainService implements BookRepository{
         return this.bookRepository.create(object);
     }
 
-    async getById(id: number) {
+    async getById(id: any) {
         return this.bookRepository.getById(id);
     }
 
-    async delete(id: number) {
+    async delete(id: any) {
         return this.bookRepository.delete(id);
     }
 }

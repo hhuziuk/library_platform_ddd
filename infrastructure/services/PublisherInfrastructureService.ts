@@ -17,7 +17,7 @@ class PublisherInfrastructureService{
         const publishers = await this.publisherRepository.find()
         return {publishers};
     }
-    async getOne (id: number){
+    async getOne (id: any){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
@@ -25,7 +25,7 @@ class PublisherInfrastructureService{
         return publisher
     }
 
-    async delete (id: number){
+    async delete (id: any){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }

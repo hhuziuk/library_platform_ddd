@@ -8,6 +8,7 @@ import TokenSchema from "../db/entities/MongoSchemas/TokenSchema";
 import {User} from "../db/entities/PostgresEntities/UserModel";
 import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
 import PostgresTokenRepository from "../db/repositories/PostgresRepository/PostgresTokenRepository";
+import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
 
 
 class TokenInfrastructureService{
@@ -64,5 +65,5 @@ class TokenInfrastructureService{
     }
 
 }
-//export default new TokenInfrastructureService(TokenSchema);
-export default new TokenInfrastructureService(PostgresTokenRepository);
+export default new TokenInfrastructureService(MongoUserRepository);
+// export default new TokenInfrastructureService(PostgresTokenRepository);

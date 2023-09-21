@@ -1,4 +1,4 @@
-// Token.ts
+
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import {User} from "./UserModel";
 

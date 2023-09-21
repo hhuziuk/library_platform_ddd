@@ -7,7 +7,7 @@ import PostgresBookRepository from "../db/repositories/PostgresRepository/Postgr
 class BookInfrastructureService{
     constructor(readonly bookRepository: any = new BookDomainService(bookRepository)) {}
     async create (name: string, author: string, description: string, file: string, ISBN: string,
-                  typeId: number, publisherId: number) {
+                  typeId: any, publisherId: any) {
         const userBook = await this.bookRepository.findOne({where: {ISBN}})
         if(userBook){
             logger.info("yes")
@@ -27,7 +27,7 @@ class BookInfrastructureService{
             books
         };
     }
-    async getOne (id: number){
+    async getOne (id: any){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
@@ -35,7 +35,7 @@ class BookInfrastructureService{
         return book;
     }
 
-    async delete (id: number){
+    async delete (id: any){
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }

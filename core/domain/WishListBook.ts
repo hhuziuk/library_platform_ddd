@@ -3,7 +3,7 @@ import {WishList} from "./WishList";
 
 export class WishListBook {
     constructor(
-        readonly id: number,
+        readonly id: any,
         readonly wishlist: WishList,
         readonly book: Book
     ) {}

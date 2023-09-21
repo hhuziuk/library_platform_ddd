@@ -1,18 +1,21 @@
 import {model, Schema} from 'mongoose';
+import {maxLength, minLength} from "class-validator";
 
 const TypeSchema = new Schema({
     name: {
         type: String,
         required: true,
         unique: true,
-        minlength: 1,
-        maxlength: 50,
-        validate: {
-            validator: (value) => {
-                return value.length <= 50;
+        validate: [
+            {
+                validator: value => minLength(value, 1),
+                message: 'name is too short',
             },
-            message: 'Name is too long',
-        },
+            {
+                validator: value => maxLength(value, 50),
+                message: 'name is too long',
+            },
+        ],
     },
     books: [
         {

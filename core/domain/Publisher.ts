@@ -3,7 +3,7 @@ import {Type} from "./Type";
 
 export class Publisher {
     constructor(
-        readonly id: number,
+        readonly id: any,
         readonly name: string,
         readonly books: Book[],
         readonly types: Type[]

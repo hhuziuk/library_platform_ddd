@@ -10,12 +10,11 @@ class PublisherController{
     async create(req: Request, res: Response, next: NextFunction){
         try{
             const {name} = req.body
-            const userPublisher = plainToClass(Publisher, { name })
-            const errors : any = await validate(userPublisher)
-            if (errors.length > 0) {
-                return next(ApiError.BadRequest('validation error', errors))
-            }
-            //const publisher = await this.publisherService.createPublisher(name)
+            // const userPublisher = plainToClass(Publisher, { name })
+            // const errors : any = await validate(userPublisher)
+            // if (errors.length > 0) {
+            //     return next(ApiError.BadRequest('validation error', errors))
+            // }
             const publisher = await PublisherInfrastructureService.create(name)
             return res.json(publisher)
         } catch(e){

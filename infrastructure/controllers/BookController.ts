@@ -15,11 +15,11 @@ class BookController{
         try{
             const {name, author, description, ISBN, typeId, publisherId} = req.body
             const {file} = req.files as { file: UploadedFile };
-            const validationBook: any = plainToClass(Book, {name, author, description, file, ISBN, typeId, publisherId});
-            const errors : any = await validate(validationBook)
-            if (errors.length > 0) {
-                return next(ApiError.BadRequest('validation error', errors))
-            }
+            // const validationBook: any = plainToClass(Book, {name, author, description, file, ISBN, typeId, publisherId});
+            // const errors : any = await validate(validationBook)
+            // if (errors.length > 0) {
+            //     return next(ApiError.BadRequest('validation error', errors))
+            // }
             const fileName = v4() + '.pdf';
             logger.info(fileName)
             await file.mv(path.resolve(__dirname, '..', 'static', fileName))

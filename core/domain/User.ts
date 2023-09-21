@@ -6,10 +6,10 @@ export class User {
     readonly description: string;
     readonly file: string;
     readonly ISBN: string;
-    readonly typeId: number;
-    readonly publisherId: number;
+    readonly typeId: any;
+    readonly publisherId: any;
     constructor(model: {name: string, author: string, description: string, file: string, ISBN: string,
-        typeId: number, publisherId: number}){
+        typeId: any, publisherId: any}){
         this.name = model.name;
         this.author = model.author;
         this.description = model.description;

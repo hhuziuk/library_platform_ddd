@@ -9,15 +9,15 @@ export interface BookRepository {
         description: string,
         file: string,
         ISBN: string,
-        typeId: number,
-        publisherId: number
+        typeId: any,
+        publisherId: any
 
     ): Promise<User>;
     getAll(): Promise<Book[]>;
     create(object: object): Promise<Book>;
     save(book: Book): Promise<Book>;
     findOne(object: object): Promise<Book>;
-    getById(id: number): Promise<Book | null>;
-    delete(id: number): Promise<void>;
+    getById(id: any): Promise<Book | null>;
+    delete(id: any): Promise<void>;
 
 }

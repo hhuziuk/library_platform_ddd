@@ -4,37 +4,41 @@ import isEmail from 'validator/lib/isEmail';
 const UserSchema = new Schema({
     username: {
         type: String,
-        required: true,
-        minLength: [2, 'username is too short'],
-        maxLength: [20, 'username is too long'],
-    },
-    email: {
-        type: String,
-        lowercase: true,
         unique: true,
-        required: true,
+        minlength: 1,
+        maxlength: 50,
         validate: {
-            validator: (value) => isEmail(value),
-            message: 'Invalid email',
+            validator: function (value) {
+                return /^[a-zA-Z0-9_.-]+$/.test(value); // Add any custom validation if needed
+            },
+            message: 'username is too short',
         },
-    },
-    role: {
-        type: String,
-        required: true,
-        default: 'User'
     },
     password: {
         type: String,
-        required: true,
-        minLength: [5, 'password is too short'],
-        maxLength: [100, 'password is too long'],
+        minlength: 4,
+        maxlength: 120,
+    },
+    email: {
+        type: String,
+        unique: true,
+        validate: {
+            validator: function (value) {
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value); // Basic email validation
+            },
+            message: 'Invalid email format',
+        },
     },
     isActivated: {
         type: Boolean,
         default: false,
     },
     activationLink: {
-        type: String
+        type: String,
+    },
+    role: {
+        type: String,
+        default: 'USER',
     },
     wishlist: {
         type: Schema.Types.ObjectId,
@@ -43,4 +47,4 @@ const UserSchema = new Schema({
 });
 
 const User = model('User', UserSchema);
-export default User;
+export default User
