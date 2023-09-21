@@ -1,5 +1,5 @@
 import Book from "../../entities/MongoSchemas/BookSchema";
-import Type from "../../entities/MongoSchemas/TypeSchema";
+
 class MongoBookRepository {
     async findOne(data) {
         return Book.findOne(data);
@@ -17,11 +17,11 @@ class MongoBookRepository {
     }
 
     async findOneBy(id) {
-        return Type.findOne({ _id: id });
+        return Book.findOne({ _id: id });
     }
 
     async delete(id) {
-        return Type.deleteOne({ _id: id });
+        return Book.deleteOne({ _id: id });
     }
 }
 

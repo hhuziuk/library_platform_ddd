@@ -1,4 +1,3 @@
-import UserSchema from "../../entities/MongoSchemas/UserSchema";
 import User from "../../entities/MongoSchemas/UserSchema";
 class MongoUserRepository {
     async findOne(data) {
@@ -14,6 +13,10 @@ class MongoUserRepository {
 
     async find(){
         return User.find()
+    }
+
+    async delete(id) {
+        return User.deleteOne({ _id: id });
     }
 }
 

@@ -1,5 +1,4 @@
 import {PostgresDataSource} from "../../../../tools/PGconnect";
-import {Type} from "../../entities/PostgresEntities/TypeModel";
 import {Token} from "../../entities/PostgresEntities/TokenModel";
 
 class PostgresTokenRepository {

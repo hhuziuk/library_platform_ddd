@@ -6,8 +6,6 @@ import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
-import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
-import logger from "../../tools/logger";
 
 
 class UserInfrastructureService {
@@ -92,6 +90,11 @@ class UserInfrastructureService {
     async getUsers(){
         const users = await this.userRepository.find();
         return users;
+    }
+
+    async delete (id: any){
+        const user = this.userRepository.delete({id})
+        return {user}
     }
 }
 //export default new UserInfrastructureService(MongoUserRepository);

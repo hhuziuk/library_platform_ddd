@@ -1,5 +1,4 @@
 import {PostgresDataSource} from "../../../../tools/PGconnect";
-import {User} from "../../entities/PostgresEntities/UserModel";
 import {Type} from "../../entities/PostgresEntities/TypeModel";
 
 class PostgresTypeRepository {

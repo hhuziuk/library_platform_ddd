@@ -19,11 +19,11 @@ class MongoPublisherRepository {
     }
 
     async findOneBy(id) {
-        return Type.findOne({ _id: id });
+        return Publisher.findOne({ _id: id });
     }
 
     async delete(id) {
-        return Type.deleteOne({ _id: id });
+        return Publisher.deleteOne({ _id: id });
     }
 }
 

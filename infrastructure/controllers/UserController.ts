@@ -5,6 +5,7 @@ import { validate } from 'class-validator';
 import ApiError from "../exceptions/Api-Error";
 import {plainToClass} from "class-transformer";
 import logger from "../../tools/logger";
+import BookInfrastructureService from "../services/BookInfrastructureService";
 class UserController{
     constructor(readonly userService: any = UserInfrastructureService) {}
     async registration(req: Request, res: Response, next: NextFunction){
@@ -61,6 +62,16 @@ class UserController{
         try{
             const users = await UserInfrastructureService.getUsers();
             return res.json(users);
+        } catch(e){
+            next(e);
+        }
+    }
+
+    async delete(req: Request, res: Response, next: NextFunction){
+        try{
+            const {id} = req.body;
+            const user = await UserInfrastructureService.delete(id)
+            return res.json(user)
         } catch(e){
             next(e);
         }

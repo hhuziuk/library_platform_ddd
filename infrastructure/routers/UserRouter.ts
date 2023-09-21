@@ -10,5 +10,6 @@ router.post('/logout', userController.logout)
 router.get('/activate/:link', userController.activate)
 router.get('/refresh', userController.refresh)
 router.get('/users', authMiddleware as RequestHandler, roleMiddleware('ADMIN'), userController.getUsers)
+router.delete('/delete', authMiddleware as RequestHandler, userController.delete)
 
 export default router

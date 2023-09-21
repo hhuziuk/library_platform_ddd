@@ -1,7 +1,5 @@
-import {User} from "../../entities/PostgresEntities/UserModel";
 import {Book} from "../../entities/PostgresEntities/BookModel";
 import {PostgresDataSource} from "../../../../tools/PGconnect";
-import {Type} from "../../entities/PostgresEntities/TypeModel";
 
 class PostgresBookRepository {
     async findOne(data: object){

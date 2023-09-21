@@ -1,6 +1,5 @@
 import Token from "../../entities/MongoSchemas/TokenSchema";
 
-
 class MongoTokenRepository {
     async findOne(data: object){
         return Token.findOne(data)

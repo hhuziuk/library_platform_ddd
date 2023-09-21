@@ -1,7 +1,6 @@
-import UserSchema from "../../entities/MongoSchemas/UserSchema";
-import ApiError from "../../../exceptions/Api-Error";
 import {PostgresDataSource} from "../../../../tools/PGconnect";
 import {User} from "../../entities/PostgresEntities/UserModel";
+
 
 
 class PostgresUserRepository {
@@ -18,6 +17,10 @@ class PostgresUserRepository {
 
     async find(){
         return PostgresDataSource.getRepository(User).find()
+    }
+
+    async delete(id: number){
+        return PostgresDataSource.getRepository(User).delete(id)
     }
 }
 
