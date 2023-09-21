@@ -22,3 +22,4 @@ class PostgresUserRepository {
 }
 
 export default new PostgresUserRepository()
+
