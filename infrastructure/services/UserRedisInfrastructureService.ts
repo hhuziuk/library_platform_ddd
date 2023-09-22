@@ -6,9 +6,10 @@ import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
+import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
 
 
-class UserInfrastructureService {
+class UserJWTInfrastructureService {
     constructor(readonly userRepository: any = new UserDomainService(userRepository)) {}
     async registration(email: string, username: string, password: string, role: string) {
         const candidate = await this.userRepository.findOne({ email });
@@ -23,11 +24,8 @@ class UserInfrastructureService {
         await mailService.sendActivationMail(email, `${process.env.API_URL}api/user/activate/${activationLink}`)
 
         const userDto = new UserDto(user) // id, email, role, isActivated
-        const tokens = tokenInfrastructureService.generateTokens({...userDto})
-        await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
 
         return {
-            ...tokens,
             user: userDto,
         }
     }
@@ -52,39 +50,19 @@ class UserInfrastructureService {
             throw ApiError.BadRequest("Wrong password")
         }
         const userDto = new UserDto(user) // id, email, role, isActivated
-        const tokens = tokenInfrastructureService.generateTokens({...userDto})
-        await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
+
 
         return {
-            ...tokens,
             user: userDto,
         }
     }
 
     async logout(refreshToken: any) {
-        const token = await tokenInfrastructureService.removeToken(refreshToken)
-        return token;
+
     }
 
     async refresh(refreshToken: any) {
-        if (!refreshToken) {
-            throw ApiError.UnauthorizedError()
-        }
-        const userData = tokenInfrastructureService.validateRefreshToken(refreshToken)
-        const tokenFromDatabase = await tokenInfrastructureService.findToken(refreshToken);
-        if(!userData || !tokenFromDatabase){
-            throw ApiError.UnauthorizedError()
-        }
-        const user = await this.userRepository.findOne({id: userData.id})
-        const userDto = new UserDto(user)
-        const tokens = tokenInfrastructureService.generateTokens({...userDto})
-
-        await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
-
-        return {
-            ...tokens,
-            user: userDto,
-        }
+        return null;
     }
 
     async getUsers(){
@@ -97,5 +75,6 @@ class UserInfrastructureService {
         return {user}
     }
 }
+
 //export default new UserInfrastructureService(MongoUserRepository);
-export default new UserInfrastructureService(PostgresUserRepository);
+export default new UserJWTInfrastructureService(PostgresUserRepository);

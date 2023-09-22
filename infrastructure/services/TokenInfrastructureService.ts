@@ -3,8 +3,6 @@ import type { JwtPayload } from "jsonwebtoken"
 import {TokenDomainService} from "../../core/services/TokenDomainService";
 import PostgresTokenRepository from "../db/repositories/PostgresRepository/PostgresTokenRepository";
 
-
-
 class TokenInfrastructureService{
     constructor(readonly tokenRepository: any = new TokenDomainService(tokenRepository)) {}
     generateTokens(payload: any) {
