@@ -1,13 +1,7 @@
 import {Response, Request, NextFunction} from "express";
-import {validate} from "class-validator";
-import ApiError from "../exceptions/Api-Error";
-import {plainToClass} from "class-transformer";
-import {v4} from "uuid";
-import path from "path";
 import logger from "../../tools/logger";
 import {UploadedFile} from "express-fileupload";
 import BookInfrastructureService from "../services/BookInfrastructureService";
-import {Book} from "../db/entities/PostgresEntities/BookModel";
 import FileService from "../services/FileService";
 
 class BookController{

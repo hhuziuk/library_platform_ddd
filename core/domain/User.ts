@@ -1,5 +1,3 @@
-import {WishList} from "./WishList";
-
 export class User {
     readonly name: string;
     readonly author: string;

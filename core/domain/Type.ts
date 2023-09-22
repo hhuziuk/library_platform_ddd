@@ -1,6 +1,5 @@
 import {Publisher} from "./Publisher";
 import {Book} from "./Book";
-
 export class Type {
     constructor(
         readonly id: any,

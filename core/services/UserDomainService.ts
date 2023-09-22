@@ -1,6 +1,5 @@
 import {UserRepository} from "../repositories/UserRepository/UserRepository";
 
-
 export class UserDomainService implements UserRepository{
     constructor(private userRepository: UserRepository) {}
 

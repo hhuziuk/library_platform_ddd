@@ -1,5 +1,4 @@
 import {Type} from "../../../domain/Type";
-
 export class TypeDto {
     readonly id: any;
     readonly name: string;

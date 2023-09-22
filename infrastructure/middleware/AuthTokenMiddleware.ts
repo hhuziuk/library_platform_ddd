@@ -13,7 +13,7 @@ interface RequestWithUser extends Request {
     user?: IDecode,
 }
 
-export default function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
+export default function authTokenMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
         const authorizationHeader = req.headers.authorization;
         if (!authorizationHeader) {

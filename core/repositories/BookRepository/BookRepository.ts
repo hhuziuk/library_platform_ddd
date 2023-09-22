@@ -1,7 +1,5 @@
 import {Book} from "../../domain/Book";
 import {User} from "../../domain/User";
-
-
 export interface BookRepository {
     createBook(
         name: string,

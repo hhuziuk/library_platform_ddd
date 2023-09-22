@@ -1,7 +1,3 @@
-import {Publisher} from "./Publisher";
-import {Type} from "./Type";
-import {WishListBook} from "./WishListBook";
-
 export class Book {
     constructor(
         readonly id: any,

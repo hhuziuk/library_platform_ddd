@@ -1,7 +1,6 @@
 import {BookRepository} from "../repositories/BookRepository/BookRepository";
 import {Book} from "../domain/Book";
 
-
 export class BookDomainService implements BookRepository{
     constructor(private bookRepository: BookRepository) {}
 

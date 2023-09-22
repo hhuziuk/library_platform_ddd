@@ -1,5 +1,4 @@
 import {UserDto} from "./dto/UserDto";
-
 export interface UserRepository {
     create(
         email: string,

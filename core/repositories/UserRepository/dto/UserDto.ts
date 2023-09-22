@@ -1,4 +1,3 @@
-
 export class UserDto {
     readonly id: any;
     readonly username: string;

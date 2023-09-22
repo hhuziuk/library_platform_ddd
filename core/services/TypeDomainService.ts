@@ -1,5 +1,4 @@
 import {TypeRepository} from "../repositories/TypeRepository/TypeRepository";
-
 export class TypeDomainService implements TypeRepository {
     constructor(private typeRepository: TypeRepository) {}
 
