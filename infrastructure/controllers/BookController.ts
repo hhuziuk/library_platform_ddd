@@ -8,6 +8,7 @@ import logger from "../../tools/logger";
 import {UploadedFile} from "express-fileupload";
 import BookInfrastructureService from "../services/BookInfrastructureService";
 import {Book} from "../db/entities/PostgresEntities/BookModel";
+import FileService from "../services/FileService";
 
 class BookController{
     constructor(readonly bookService: any = BookInfrastructureService) {}
@@ -15,15 +16,7 @@ class BookController{
         try{
             const {name, author, description, ISBN, typeId, publisherId} = req.body
             const {file} = req.files as { file: UploadedFile };
-            // const validationBook: any = plainToClass(Book, {name, author, description, file, ISBN, typeId, publisherId});
-            // const errors : any = await validate(validationBook)
-            // if (errors.length > 0) {
-            //     return next(ApiError.BadRequest('validation error', errors))
-            // }
-            const fileName = v4() + '.pdf';
-            logger.info(fileName)
-            await file.mv(path.resolve(__dirname, '..', 'static', fileName))
-
+            const fileName = await FileService.saveFile(file)
             const book = await BookInfrastructureService.create(name, author, description, fileName, ISBN, typeId, publisherId)
             return res.json(book)
         } catch(e){

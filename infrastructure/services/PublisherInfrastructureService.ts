@@ -1,7 +1,6 @@
 import ApiError from "../exceptions/Api-Error";
 import {PublisherDomainService} from "../../core/services/PublisherDomainService";
 import PostgresPublisherRepository from "../db/repositories/PostgresRepository/PostgresPublisherRepository";
-import MongoTypeRepository from "../db/repositories/MongoRepository/MongoTypeRepository";
 import MongoPublisherRepository from "../db/repositories/MongoRepository/MongoPublisherRepository";
 
 class PublisherInfrastructureService{

@@ -1,7 +1,6 @@
 import ApiError from "../exceptions/Api-Error";
 import {TypeDomainService} from "../../core/services/TypeDomainService";
 import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
-import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
 import MongoTypeRepository from "../db/repositories/MongoRepository/MongoTypeRepository";
 
 

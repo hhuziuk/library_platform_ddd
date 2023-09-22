@@ -1,14 +1,8 @@
 import jwt from 'jsonwebtoken'
-import {PostgresDataSource} from "../../tools/PGconnect";
-import {Token} from "../db/entities/PostgresEntities/TokenModel";
 import type { JwtPayload } from "jsonwebtoken"
 import {TokenDomainService} from "../../core/services/TokenDomainService";
-import PublisherSchema from "../db/entities/MongoSchemas/PublisherSchema";
-import TokenSchema from "../db/entities/MongoSchemas/TokenSchema";
-import {User} from "../db/entities/PostgresEntities/UserModel";
-import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
 import PostgresTokenRepository from "../db/repositories/PostgresRepository/PostgresTokenRepository";
-import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
+
 
 
 class TokenInfrastructureService{
