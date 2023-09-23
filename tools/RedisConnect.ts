@@ -1,11 +1,21 @@
 import RedisStore from "connect-redis";
 import session from "express-session"
 import {createClient} from "redis";
+import logger from "./logger";
 
 const REDIS_URL: any = process.env.REDIS_URL;
 const redisClient = createClient(REDIS_URL)
 
-redisClient.connect().catch(console.error).then(() => console.log('Redis Connected...'))
+const redisConnect = async function () {
+    try{
+        await redisClient.connect().then(() => console.log('Redis Connected...'))
+    } catch (e) {
+        logger.error('Redis Connection Error:', e)
+    }
+
+}
+
+redisConnect()
 
 export default session({
     store: new RedisStore({ client: redisClient }),

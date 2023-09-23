@@ -9,6 +9,7 @@ import errorMiddleware from "./infrastructure/middleware/ErrorMiddleware";
 import fileUpload from "express-fileupload";
 import session from "./tools/RedisConnect";
 import router from "./infrastructure/routers";
+import {createClient} from "redis";
 
 
 const PORT = process.env.PORT || 3015;
