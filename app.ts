@@ -7,25 +7,39 @@ import mongoose from 'mongoose'
 import {PostgresDataSource} from "./tools/PGconnect";
 import errorMiddleware from "./infrastructure/middleware/ErrorMiddleware";
 import fileUpload from "express-fileupload";
-import session from "./tools/RedisConnect";
+import session from "express-session"
 import router from "./infrastructure/routers";
 import {createClient} from "redis";
+import RedisStore from "connect-redis";
+import redisClient from "./tools/RedisConnect";
+import RedisClient from "./tools/RedisConnect";
 
 
 const PORT = process.env.PORT || 3015;
 const app = express();
 
-app.use(session)
+
 app.use(express.json())
 app.use(cors())
 app.use(fileUpload({}))
 app.use(cookieParser())
 app.use(errorMiddleware)
 app.use('/api', router)
-
+app.use(session({
+    store: new RedisStore({ client: RedisClient }),
+    secret: process.env.REDIS_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // if true only transmit cookie over https
+        httpOnly: false, // if true prevent client side JS from reading the cookie
+        maxAge: 1000 * 60 * 10 // session max age in miliseconds
+    }
+}))
 
 const start = async() => {
     try{
+        await redisClient.connect().then(() => console.log('Redis Connected...'))
         await PostgresDataSource.initialize()
             .then(() => console.log('Postgres Connected...'))
             .catch((error) => console.log(error))
