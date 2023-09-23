@@ -12,7 +12,6 @@ import router from "./infrastructure/routers";
 import {createClient} from "redis";
 import RedisStore from "connect-redis";
 import redisClient from "./tools/RedisConnect";
-import RedisClient from "./tools/RedisConnect";
 
 
 const PORT = process.env.PORT || 3015;
@@ -24,9 +23,8 @@ app.use(cors())
 app.use(fileUpload({}))
 app.use(cookieParser())
 app.use(errorMiddleware)
-app.use('/api', router)
 app.use(session({
-    store: new RedisStore({ client: RedisClient }),
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.REDIS_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -36,6 +34,8 @@ app.use(session({
         maxAge: 1000 * 60 * 10 // session max age in miliseconds
     }
 }))
+app.use('/api', router)
+
 
 const start = async() => {
     try{

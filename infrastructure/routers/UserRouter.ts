@@ -10,7 +10,7 @@ router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 router.get('/activate/:link', userController.activate)
 router.get('/refresh', userController.refresh)
-router.get('/users', authRedisMiddleware as RequestHandler, roleMiddleware('ADMIN'), userController.getUsers)
-router.delete('/delete', authRedisMiddleware as RequestHandler, userController.delete)
+router.get('/users', authRedisMiddleware, roleMiddleware('ADMIN'), userController.getUsers)
+router.delete('/delete', authRedisMiddleware, userController.delete)
 
 export default router
