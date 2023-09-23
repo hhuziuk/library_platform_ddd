@@ -7,6 +7,7 @@ import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
 import {AuthDomainService} from "../../core/services/AuthDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
 import JWTService from "./JWTService";
+import RedisService from "./RedisService";
 
 class UserService {
     constructor(readonly userRepository: any = new UserDomainService(userRepository),
@@ -24,7 +25,7 @@ class UserService {
         await mailService.sendActivationMail(email, `${process.env.API_URL}api/user/activate/${activationLink}`)
 
         const userDto = new UserDto(user)
-        return await this.authRepository.registration(user)
+        return await this.authRepository.registration(email, username, hashPassword, activationLink, role)
     }
 
     async activate(activationLink: any) {
@@ -47,7 +48,7 @@ class UserService {
             throw ApiError.BadRequest("Wrong password")
         }
         const userDto = new UserDto(user) // id, email, role, isActivated
-        return await this.authRepository.login(user)
+        return await this.authRepository.login(email, password)
     }
 
     async logout(argument: any) {
@@ -69,4 +70,4 @@ class UserService {
     }
 }
 
-export default new UserService(PostgresUserRepository, JWTService)
+export default new UserService(PostgresUserRepository, RedisService)
