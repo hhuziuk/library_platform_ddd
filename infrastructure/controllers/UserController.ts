@@ -1,13 +1,13 @@
 import {Response, Request, NextFunction} from "express";
-import UserJWTInfrastructureService from "../services/UserJWTInfrastructureService";
+import UserService from "../services/UserService";
 
 import logger from "../../tools/logger";
 class UserController{
-    constructor(readonly userService: any = UserJWTInfrastructureService) {}
+    constructor(readonly userService: any = UserService) {}
     async registration(req: Request, res: Response, next: NextFunction){
         try{
             const {email, username, password, role} = req.body
-            const userData = await UserJWTInfrastructureService.registration(email, username, password, role)
+            const userData = await UserService.registration(email, username, password, role)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e){
@@ -18,7 +18,7 @@ class UserController{
     async login(req: Request, res: Response, next: NextFunction){
         try{
             const {email, username, password} = req.body
-            const userData = await UserJWTInfrastructureService.login(email, password)
+            const userData = await UserService.login(email, password)
 
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
@@ -29,7 +29,7 @@ class UserController{
     async logout(req: Request, res: Response, next: NextFunction){
         try{
             const {refreshToken} = req.cookies;
-            const userData = UserJWTInfrastructureService.logout(refreshToken)
+            const userData = UserService.logout(refreshToken)
             res.clearCookie('userData')
             return res.json(userData)
         } catch(e){
@@ -39,7 +39,7 @@ class UserController{
     async activate(req: Request, res: Response, next: NextFunction){
         try{
             const activationLink = req.params.link;
-            await UserJWTInfrastructureService.activate(activationLink);
+            await UserService.activate(activationLink);
             return res.redirect(process.env.CLIENT_URL || '')
         } catch(e){
             next(e);
@@ -48,7 +48,7 @@ class UserController{
     async refresh(req: Request, res: Response, next: NextFunction){
         try{
             const {refreshToken} = req.cookies
-            const userData = await UserJWTInfrastructureService.refresh(refreshToken)
+            const userData = await UserService.refresh(refreshToken)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e){
@@ -57,16 +57,17 @@ class UserController{
     }
     async getUsers(req: Request, res: Response, next: NextFunction){
         try{
-            const users = await UserJWTInfrastructureService.getUsers();
+            const users = await UserService.getUsers();
             return res.json(users);
         } catch(e){
             next(e);
         }
     }
+
     async delete(req: Request, res: Response, next: NextFunction){
         try{
             const {id} = req.body;
-            const user = await UserJWTInfrastructureService.delete(id)
+            const user = await UserService.delete(id)
             return res.json(user)
         } catch(e){
             next(e);

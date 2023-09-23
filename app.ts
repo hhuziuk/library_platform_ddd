@@ -9,7 +9,7 @@ import errorMiddleware from "./infrastructure/middleware/ErrorMiddleware";
 import fileUpload from "express-fileupload";
 import session from "./tools/RedisConnect";
 import router from "./infrastructure/routers";
-import authRedisMiddleware from "./infrastructure/middleware/AuthRedisMiddleware";
+
 
 const PORT = process.env.PORT || 3015;
 const app = express();

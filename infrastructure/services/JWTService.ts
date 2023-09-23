@@ -8,53 +8,22 @@ import {UserDomainService} from "../../core/services/UserDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
 
 
-class UserJWTInfrastructureService {
+class JWTService {
     constructor(readonly userRepository: any = new UserDomainService(userRepository)) {}
-    async registration(email: string, username: string, password: string, role: string) {
-        const candidate = await this.userRepository.findOne({ email });
-        if (candidate) {
-            throw ApiError.BadRequest(`User with the same ${email} already exists`)
-        }
-        const hashPassword = await bcrypt.hash(password, 8)
-        const activationLink = v4()
-
-        const user = await this.userRepository.create({email, username, password: hashPassword, activationLink, role})
-        await this.userRepository.save(user)
-        await mailService.sendActivationMail(email, `${process.env.API_URL}api/user/activate/${activationLink}`)
-
+    async registration(user: any) {
         const userDto = new UserDto(user) // id, email, role, isActivated
         const tokens = tokenInfrastructureService.generateTokens({...userDto})
         await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
-
         return {
             ...tokens,
             user: userDto,
         }
     }
 
-    async activate(activationLink: any) {
-        const user = await this.userRepository.findOne({activationLink})
-        if (!user) {
-            throw ApiError.BadRequest("activation link is not correct")
-        }
-        user.isActivated = true;
-        await this.userRepository.save(user)
-    }
-
-    async login(email: string, password: string) {
-        const user = await this.userRepository.findOne({ email });
-        if (!user) {
-            throw ApiError.BadRequest("User with this email does not exist")
-        }
-
-        const comparePassword = await bcrypt.compare(password, user.password)
-        if (!comparePassword) {
-            throw ApiError.BadRequest("Wrong password")
-        }
+    async login(user: any) {
         const userDto = new UserDto(user) // id, email, role, isActivated
         const tokens = tokenInfrastructureService.generateTokens({...userDto})
         await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
-
         return {
             ...tokens,
             user: userDto,
@@ -78,24 +47,12 @@ class UserJWTInfrastructureService {
         const user = await this.userRepository.findOne({id: userData.id})
         const userDto = new UserDto(user)
         const tokens = tokenInfrastructureService.generateTokens({...userDto})
-
         await tokenInfrastructureService.saveToken(userDto.id, tokens.refreshToken)
-
         return {
             ...tokens,
             user: userDto,
         }
     }
-
-    async getUsers(){
-        const users = await this.userRepository.find();
-        return users;
-    }
-
-    async delete (id: any){
-        const user = this.userRepository.delete({id})
-        return {user}
-    }
 }
 //export default new UserInfrastructureService(MongoUserRepository);
-export default new UserJWTInfrastructureService(PostgresUserRepository);
+export default new JWTService(PostgresUserRepository);
