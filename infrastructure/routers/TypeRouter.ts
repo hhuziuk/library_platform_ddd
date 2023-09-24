@@ -5,9 +5,11 @@ import roleMiddleware from "../middleware/RoleMiddleware";
 import authRedisMiddleware from "../middleware/AuthRedisMiddleware";
 const router = express.Router();
 
-router.post('/add', authRedisMiddleware as RequestHandler, roleMiddleware('ADMIN'), typeController.create)
-router.get('/:id', authRedisMiddleware as RequestHandler, roleMiddleware('ADMIN'), typeController.getOne)
-router.get('/', authRedisMiddleware as RequestHandler, roleMiddleware('ADMIN'), typeController.getAll)
-router.delete('/:id', authRedisMiddleware as RequestHandler, roleMiddleware('ADMIN'), typeController.delete)
+router.post('/add', authRedisMiddleware, roleMiddleware('ADMIN'), typeController.create)
+router.get('/:id', authRedisMiddleware, roleMiddleware('ADMIN'), typeController.getOne)
+router.get('/', authRedisMiddleware, roleMiddleware('ADMIN'), typeController.getAll)
+router.delete('/:id', authRedisMiddleware, roleMiddleware('ADMIN'), typeController.delete)
 
 export default router
+
+// as RequestHandler

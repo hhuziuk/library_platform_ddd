@@ -1,33 +1,30 @@
-import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
 import {UserDomainService} from "../../core/services/UserDomainService";
-import {createClient} from "redis";
 import RedisClient from "../../tools/RedisConnect";
-import ApiError from "../exceptions/Api-Error";
 import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
 
 class RedisService {
-    constructor(readonly userRepository: any = new UserDomainService(userRepository)) {}
-    async registration(email: string, username: string, password: string, activationLink: string, role: string){
+    constructor(readonly userRepository: any = new UserDomainService(userRepository)) {
+    }
+    async registration(user: any){
         try {
-            const user = {email, username, password, activationLink, role };
-            await RedisClient.set(email, JSON.stringify(user));
-            return user;
+            const userDto = new UserDto(user)
+            await RedisClient.set(userDto.email, JSON.stringify(user));
+            return {
+                message: "Registration successful",
+                user: userDto
+            };
         } catch (error) {
             throw error;
         }
     }
-    async login(email: string, password: string){
+    async login(user: any){
         try {
-            const userJson = await RedisClient.get(email);
-            if (!userJson) {
-                throw ApiError.BadRequest("User not found");
-            }
-            const user = JSON.parse(userJson);
+            const userDto = new UserDto(user)
+            const userJson = await RedisClient.get(userDto.email);
             return {
                 message: "Login successful",
-                user: new UserDto(user),
+                user: userDto
             };
-            return { message: "User registration successful" };
         } catch (error) {
             throw error;
         }
@@ -35,7 +32,6 @@ class RedisService {
     async logout(email: string){
         try {
             await RedisClient.del(email);
-
             return { message: "Logout successful" };
         } catch (error) {
             throw error;

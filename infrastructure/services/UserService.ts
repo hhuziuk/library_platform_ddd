@@ -25,7 +25,7 @@ class UserService {
         await mailService.sendActivationMail(email, `${process.env.API_URL}api/user/activate/${activationLink}`)
 
         const userDto = new UserDto(user)
-        return await this.authRepository.registration(email, username, hashPassword, activationLink, role)
+        return await this.authRepository.registration(user)
     }
 
     async activate(activationLink: any) {
@@ -48,7 +48,7 @@ class UserService {
             throw ApiError.BadRequest("Wrong password")
         }
         const userDto = new UserDto(user) // id, email, role, isActivated
-        return await this.authRepository.login(email, password)
+        return await this.authRepository.login(user)
     }
 
     async logout(argument: any) {
