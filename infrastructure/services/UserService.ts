@@ -8,6 +8,7 @@ import {AuthDomainService} from "../../core/services/AuthDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
 import JWTService from "./JWTService";
 import RedisService from "./RedisService";
+import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
 
 class UserService {
     constructor(readonly userRepository: any = new UserDomainService(userRepository),
@@ -70,4 +71,4 @@ class UserService {
     }
 }
 
-export default new UserService(PostgresUserRepository, RedisService)
+export default new UserService(MongoUserRepository, JWTService)

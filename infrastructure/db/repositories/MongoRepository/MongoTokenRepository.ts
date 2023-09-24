@@ -1,4 +1,5 @@
 import Token from "../../entities/MongoSchemas/TokenSchema";
+import Type from "../../entities/MongoSchemas/TypeSchema";
 
 class MongoTokenRepository {
     async findOne(data: object){
@@ -16,8 +17,8 @@ class MongoTokenRepository {
         return Token.find()
     }
 
-    async findOneBy(id: number){
-        return Token.findById(id)
+    async findOneBy(id) {
+        return Token.findOne({ _id: id });
     }
 
     async removeToken(refreshToken: object) {

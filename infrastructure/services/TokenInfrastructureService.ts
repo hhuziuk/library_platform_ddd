@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import type { JwtPayload } from "jsonwebtoken"
 import {TokenDomainService} from "../../core/services/TokenDomainService";
 import PostgresTokenRepository from "../db/repositories/PostgresRepository/PostgresTokenRepository";
+import MongoTokenRepository from "../db/repositories/MongoRepository/MongoTokenRepository";
 
 class TokenInfrastructureService{
     constructor(readonly tokenRepository: any = new TokenDomainService(tokenRepository)) {}
@@ -32,11 +33,7 @@ class TokenInfrastructureService{
     }
 
     async saveToken(userId: any, refreshToken: any){
-        const tokenData = await this.tokenRepository.findOne({
-                user: {
-                    id: userId
-                }
-            })
+        const tokenData = await this.tokenRepository.findOne({id: userId})
         if(tokenData){
             tokenData.refreshToken = refreshToken;
             return this.tokenRepository.save(tokenData);
@@ -58,4 +55,4 @@ class TokenInfrastructureService{
 
 }
 //export default new TokenInfrastructureService(MongoUserRepository);
- export default new TokenInfrastructureService(PostgresTokenRepository);
+ export default new TokenInfrastructureService(MongoTokenRepository);

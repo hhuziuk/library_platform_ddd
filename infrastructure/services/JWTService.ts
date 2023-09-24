@@ -6,6 +6,7 @@ import tokenInfrastructureService from "./TokenInfrastructureService";
 import ApiError from "../exceptions/Api-Error";
 import {UserDomainService} from "../../core/services/UserDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
+import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
 
 
 class JWTService {
@@ -55,4 +56,4 @@ class JWTService {
     }
 }
 //export default new UserInfrastructureService(MongoUserRepository);
-export default new JWTService(PostgresUserRepository);
+export default new JWTService(MongoUserRepository);

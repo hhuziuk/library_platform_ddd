@@ -23,7 +23,7 @@ class TypeInfrastructureService{
         if(!id){
             throw ApiError.BadRequest(`No id was provided`)
         }
-        const type = this.typeRepository.findOneBy(id)
+        const type = this.typeRepository.findOneBy({id})
         return type
 
     }
@@ -39,4 +39,4 @@ class TypeInfrastructureService{
 }
 
 //export default new TypeInfrastructureService(MongoTypeRepository);
-export default new TypeInfrastructureService(PostgresTypeRepository);
+export default new TypeInfrastructureService(MongoTypeRepository);
