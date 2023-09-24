@@ -7,7 +7,7 @@ import mongoose from 'mongoose'
 import {PostgresDataSource} from "./tools/PGconnect";
 import errorMiddleware from "./infrastructure/middleware/ErrorMiddleware";
 import fileUpload from "express-fileupload";
-import session from "express-session"
+import session from "express-session";
 import router from "./infrastructure/routers";
 import {createClient} from "redis";
 import RedisStore from "connect-redis";
@@ -16,7 +16,6 @@ import redisClient from "./tools/RedisConnect";
 
 const PORT = process.env.PORT || 3015;
 const app = express();
-
 
 app.use(express.json())
 app.use(cors())
