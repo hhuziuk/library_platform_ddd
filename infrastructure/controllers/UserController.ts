@@ -1,6 +1,7 @@
 import {Response, Request, NextFunction} from "express";
 import UserService from "../services/UserService";
 import logger from "../../tools/logger";
+import {parseJsonSafe} from "@mikro-orm/core";
 
 class UserController{
     constructor(readonly userService: any = UserService) {}
@@ -9,11 +10,7 @@ class UserController{
             const {email, username, password, role} = req.body
             const userData = await UserService.registration(email, username, password, role)
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-            req.session.user = {
-                email: userData.email,
-                username: userData.username,
-                role: userData.role
-            };
+            req.session.user = {...userData};
             return res.json(userData)
         } catch(e){
             next(e);
@@ -24,11 +21,8 @@ class UserController{
         try{
             const {email, password} = req.body
             const userData = await UserService.login(email, password)
-            req.session.user = {
-                email: userData.email,
-                username: userData.username,
-                role: userData.role
-            };
+            req.session.user = {...userData};
+            logger.info(parseJsonSafe(req.session.user))
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch(e){

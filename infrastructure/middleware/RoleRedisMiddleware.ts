@@ -49,8 +49,8 @@ export default function(requiredRole: string){
                 return next(ApiError.UnauthorizedError());
             }
 
-            const {role} = req.session.user;
-            if (role !== requiredRole) {
+            const {user} = req.session.user;
+            if (user.role !== requiredRole) {
                 return next(ApiError.AccessDenied());
             }
 
