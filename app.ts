@@ -17,11 +17,6 @@ import redisClient from "./tools/RedisConnect";
 const PORT = process.env.PORT || 3015;
 const app = express();
 
-app.use(express.json())
-app.use(cors())
-app.use(fileUpload({}))
-app.use(cookieParser())
-app.use(errorMiddleware)
 app.use(session({
     store: new RedisStore({ client: redisClient }),
     name: 'sessioncookie',
@@ -34,6 +29,11 @@ app.use(session({
         maxAge: 1000 * 60 * 10 // session max age in miliseconds
     }
 }))
+app.use(express.json())
+app.use(cors())
+app.use(fileUpload({}))
+app.use(cookieParser())
+app.use(errorMiddleware)
 app.use('/api', router)
 
 
@@ -53,6 +53,6 @@ const start = async() => {
 }
 
 
-start()
+start();
 
 export default app

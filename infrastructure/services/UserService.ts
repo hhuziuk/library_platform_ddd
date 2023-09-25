@@ -71,4 +71,4 @@ class UserService {
     }
 }
 
-export default new UserService(MongoUserRepository, JWTService)
+export default new UserService(PostgresUserRepository, RedisService)

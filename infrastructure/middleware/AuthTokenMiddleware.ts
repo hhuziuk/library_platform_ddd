@@ -1,6 +1,8 @@
 import { Response, Request, NextFunction } from "express";
 import ApiError from "../exceptions/Api-Error";
-import tokenInfrastructureService from "../services/TokenInfrastructureService";
+import RedisClient from "../../tools/RedisConnect";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import logger from "../../tools/logger";
 
 interface IDecode {
     id: string;
@@ -10,26 +12,28 @@ interface IDecode {
     role: string;
 }
 interface RequestWithUser extends Request {
-    user?: IDecode,
+    user?: IDecode;
 }
 
-export default function authTokenMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
+export default async function authMiddleware(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
         const authorizationHeader = req.headers.authorization;
-        if (!authorizationHeader) {
-            return next(ApiError.UnauthorizedError());
-        }
-        const accessToken = authorizationHeader.split(' ')[1];
-        if (!accessToken) {
-            return next(ApiError.UnauthorizedError());
-        }
-        const userData = <IDecode>tokenInfrastructureService.validateAccessToken(accessToken);
-        if (!userData) {
-            return next(ApiError.UnauthorizedError());
-        }
-        req.user = userData;
-        next();
+        if (authorizationHeader) {
+            const accessToken = authorizationHeader.split(' ')[1];
+            if (accessToken) {
+                const userData = <IDecode>jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET );
 
+                if (userData) {
+                    req.user = userData;
+                    return next();
+                }
+            }
+        }
+
+        if (!req.session.user) {
+            return next(ApiError.UnauthorizedError());
+        }
+        next();
     } catch (e) {
         next(e);
     }

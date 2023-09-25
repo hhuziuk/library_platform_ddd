@@ -36,4 +36,4 @@ class PublisherInfrastructureService{
 
 }
 //export default new PublisherInfrastructureService(MongoPublisherRepository);
-export default new PublisherInfrastructureService(MongoPublisherRepository);
+export default new PublisherInfrastructureService(PostgresPublisherRepository);

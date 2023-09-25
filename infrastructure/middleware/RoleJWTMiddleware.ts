@@ -1,6 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import ApiError from "../exceptions/Api-Error";
 import tokenInfrastructureService from "../services/TokenInfrastructureService";
+import logger from "../../tools/logger";
 
 interface IDecode {
     id: string;
@@ -18,6 +19,7 @@ export default function(role: any){
     return function(req: RequestWithUser, res: Response, next: NextFunction) {
         if (req.method === "OPTIONS") {
             next();
+            logger.info('no')
         }
         try {
             const token = req.headers?.authorization?.split(' ')[1];

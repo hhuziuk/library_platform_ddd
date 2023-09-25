@@ -56,4 +56,4 @@ class JWTService {
     }
 }
 //export default new UserInfrastructureService(MongoUserRepository);
-export default new JWTService(MongoUserRepository);
+export default new JWTService(PostgresUserRepository);

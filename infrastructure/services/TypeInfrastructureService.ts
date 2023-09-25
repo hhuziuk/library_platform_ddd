@@ -39,4 +39,4 @@ class TypeInfrastructureService{
 }
 
 //export default new TypeInfrastructureService(MongoTypeRepository);
-export default new TypeInfrastructureService(MongoTypeRepository);
+export default new TypeInfrastructureService(PostgresTypeRepository);

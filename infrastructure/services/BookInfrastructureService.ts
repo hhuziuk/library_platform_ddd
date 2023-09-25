@@ -47,4 +47,4 @@ class BookInfrastructureService{
 }
 //export default new BookInfrastructureService(MongoBookRepository);
 
-export default new BookInfrastructureService(MongoBookRepository);
+export default new BookInfrastructureService(PostgresBookRepository);
