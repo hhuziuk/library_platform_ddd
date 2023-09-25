@@ -20,6 +20,13 @@ class RedisService {
         }
     }
 
+    async logout(argument: any) {
+        return null;
+    }
+
+    async refresh(refreshToken: any) {
+        return null;
+    }
 
 }
 
