@@ -1,14 +1,9 @@
-import {UserDomainService} from "../../core/services/UserDomainService";
-import RedisClient from "../../tools/RedisConnect";
 import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
-import logger from "../../tools/logger";
-import tokenInfrastructureService from "./TokenInfrastructureService";
-import {NextFunction, Request, Response} from "express";
-import ApiError from "../exceptions/Api-Error";
+import { EventEmitter } from 'events';
 
 class RedisService {
     async registration(user: any) {
-        const userDto = new UserDto(user) // id, email, role, isActivated
+        const userDto = new UserDto(user)
         return {
             user: userDto,
         }

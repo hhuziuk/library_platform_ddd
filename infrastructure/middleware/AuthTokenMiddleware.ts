@@ -1,8 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import ApiError from "../exceptions/Api-Error";
-import RedisClient from "../../tools/RedisConnect";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import logger from "../../tools/logger";
 
 interface IDecode {
     id: string;

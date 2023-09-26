@@ -8,11 +8,13 @@ import {AuthDomainService} from "../../core/services/AuthDomainService";
 import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
 import JWTService from "./JWTService";
 import RedisService from "./RedisService";
-import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
 
 class UserService {
+    public cookiesEnabled: boolean
     constructor(readonly userRepository: any = new UserDomainService(userRepository),
-                readonly authRepository: any = new AuthDomainService(authRepository)) {}
+                readonly authRepository: any = new AuthDomainService(authRepository)) {
+        (authRepository === JWTService) ? this.cookiesEnabled = true : this.cookiesEnabled = false
+    }
     async registration(email: string, username: string, password: string, role: string) {
         const candidate = await this.userRepository.findOne({ email });
         if (candidate) {

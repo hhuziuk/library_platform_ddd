@@ -1,7 +1,6 @@
 import {Response, Request, NextFunction} from "express";
 import UserService from "../services/UserService";
 import logger from "../../tools/logger";
-import {parseJsonSafe} from "@mikro-orm/core";
 
 class UserController{
     constructor(readonly userService: any = UserService) {}
@@ -9,8 +8,8 @@ class UserController{
         try{
             const {email, username, password, role} = req.body
             const userData = await UserService.registration(email, username, password, role)
-            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
-            req.session.user = {...userData};
+            UserService.cookiesEnabled ? res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+                : req.session.user = {...userData};
             return res.json(userData)
         } catch(e){
             next(e);
@@ -21,9 +20,9 @@ class UserController{
         try{
             const {email, password} = req.body
             const userData = await UserService.login(email, password)
-            req.session.user = {...userData};
-            logger.info(parseJsonSafe(req.session.user))
-            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            UserService.cookiesEnabled ? res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+                : req.session.user = {...userData};
+            logger.info(UserService.cookiesEnabled)
             return res.json(userData)
         } catch(e){
             next(e);
@@ -31,18 +30,17 @@ class UserController{
     }
 
 
-    //// !!!!!!!!!!!!!!! email -> id
     async logout(req: Request, res: Response, next: NextFunction){
         try{
             const {email} = req.body;
             const userData = UserService.logout(email)
-            await req.session.destroy((err) => {
+            UserService.cookiesEnabled ? res.clearCookie('userData')
+                : await req.session.destroy((err) => {
                 if (err) {
                     res.clearCookie('sessioncookie')
                     logger.error(err);
                 }
-            });
-            res.clearCookie('userData')
+            })
             return res.json(userData)
         } catch(e){
             next(e)
@@ -61,7 +59,8 @@ class UserController{
         try{
             const {refreshToken} = req.cookies
             const userData = await UserService.refresh(refreshToken)
-            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            UserService.cookiesEnabled ? res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+                : null
             return res.json(userData)
         } catch(e){
             next(e);
@@ -70,9 +69,7 @@ class UserController{
     async getUsers(req: Request, res: Response, next: NextFunction){
         try{
             const users = await UserService.getUsers();
-            //if(user){
-                return res.json(users);
-            //}
+            return res.json(users);
         } catch(e){
             next(e);
         }

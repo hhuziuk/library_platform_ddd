@@ -3,7 +3,6 @@ import logger from "../../tools/logger";
 import {UploadedFile} from "express-fileupload";
 import BookInfrastructureService from "../services/BookInfrastructureService";
 import FileService from "../services/FileService";
-
 class BookController{
     constructor(readonly bookService: any = BookInfrastructureService) {}
     async create(req: Request, res: Response, next: NextFunction){
