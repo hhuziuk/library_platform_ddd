@@ -12,6 +12,7 @@ import router from "./infrastructure/routers";
 import {createClient} from "redis";
 import RedisStore from "connect-redis";
 import redisClient from "./tools/RedisConnect";
+import {setupSwagger} from "./swagger";
 
 
 const PORT = process.env.PORT || 3015;
@@ -35,6 +36,8 @@ app.use(fileUpload({}))
 app.use(cookieParser())
 app.use(errorMiddleware)
 app.use('/api', router)
+
+setupSwagger(app);
 
 
 const start = async() => {
