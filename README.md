@@ -28,7 +28,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project was written as an extension to my previous project. The main idea is to use a DDD (Domain-driven design) approach to facilitate further scaling or transition to more modern tools, as well as to modalize the program to divide it into several desks, which would also simplify debugging or integration. As an example that this approach is really convenient, I used databases with different models (MongoDB and PostgreSQL). ORM (TypeORM) and ODM (Mongoose) were also used. It may not be perfect, but I'm always happy to hear a comment about my code.
+This project was written as an extension to my previous project. The main idea is to use a DDD (Domain-driven design) approach to facilitate further scaling or transition to more modern tools, as well as to modalize the program to divide it into several desks, which would also simplify debugging or integration. As an example that this approach is really convenient, I used databases with different models, for example: MongoDB, PostgreSQL and in-memory storage Redis to save user sessions. ORM (TypeORM) and ODM (Mongoose) were also used. It may not be perfect, but I'm always happy to hear a comment about my code.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
