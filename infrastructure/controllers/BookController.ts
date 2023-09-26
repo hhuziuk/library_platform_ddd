@@ -32,7 +32,7 @@ class BookController{
             const book = await BookInfrastructureService.getOne(parseInt(id, 10))
             return res.json(book)
         } catch(e){
-            next(e);
+            next(e)
         }
     }
 
