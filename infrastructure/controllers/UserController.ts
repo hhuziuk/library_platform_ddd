@@ -4,6 +4,42 @@ import logger from "../../tools/logger";
 
 class UserController{
     constructor(readonly userService: any = UserService) {}
+    /**
+     * @swagger
+     * tags:
+     *   name: Users
+     *   description: Operations related to user management
+     */
+
+    /**
+     * @swagger
+     * /api/users/registration:
+     *   post:
+     *     summary: Register a new user
+     *     tags: [Users]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               email:
+     *                 type: string
+     *               username:
+     *                 type: string
+     *               password:
+     *                 type: string
+     *               role:
+     *                 type: string
+     *     responses:
+     *       200:
+     *         description: User registered successfully
+     *       400:
+     *         description: Bad request
+     *       500:
+     *         description: Internal server error
+     */
     async registration(req: Request, res: Response, next: NextFunction){
         try{
             const {email, username, password, role} = req.body
@@ -16,6 +52,31 @@ class UserController{
             logger.error(e)
         }
     }
+    /**
+     * @swagger
+     * /api/users/login:
+     *   post:
+     *     summary: User login
+     *     tags: [Users]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               email:
+     *                 type: string
+     *               password:
+     *                 type: string
+     *     responses:
+     *       200:
+     *         description: User logged in successfully
+     *       400:
+     *         description: Bad request
+     *       500:
+     *         description: Internal server error
+     */
     async login(req: Request, res: Response, next: NextFunction){
         try{
             const {email, password} = req.body
@@ -28,7 +89,29 @@ class UserController{
             next(e);
         }
     }
-
+    /**
+     * @swagger
+     * /api/users/logout:
+     *   post:
+     *     summary: User logout
+     *     tags: [Users]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               email:
+     *                 type: string
+     *     responses:
+     *       200:
+     *         description: User logged out successfully
+     *       400:
+     *         description: Bad request
+     *       500:
+     *         description: Internal server error
+     */
 
     async logout(req: Request, res: Response, next: NextFunction){
         try{
@@ -46,6 +129,24 @@ class UserController{
             next(e)
         }
     }
+    /**
+     * @swagger
+     * /api/users/activate/{link}:
+     *   get:
+     *     summary: Activate a user account
+     *     tags: [Users]
+     *     parameters:
+     *       - in: path
+     *         name: link
+     *         type: string
+     *         required: true
+     *         description: The activation link for the user account
+     *     responses:
+     *       302:
+     *         description: User account activated successfully, redirects to a URL
+     *       500:
+     *         description: Internal server error
+     */
     async activate(req: Request, res: Response, next: NextFunction){
         try{
             const activationLink = req.params.link;
@@ -55,6 +156,20 @@ class UserController{
             next(e);
         }
     }
+    /**
+     * @swagger
+     * /api/users/refresh:
+     *   post:
+     *     summary: Refresh user token
+     *     tags: [Users]
+     *     responses:
+     *       200:
+     *         description: Token refreshed successfully
+     *       400:
+     *         description: Bad request
+     *       500:
+     *         description: Internal server error
+     */
     async refresh(req: Request, res: Response, next: NextFunction){
         try{
             const {refreshToken} = req.cookies
@@ -66,6 +181,18 @@ class UserController{
             next(e);
         }
     }
+    /**
+     * @swagger
+     * /api/users:
+     *   get:
+     *     summary: Get all users
+     *     tags: [Users]
+     *     responses:
+     *       200:
+     *         description: List of all users
+     *       500:
+     *         description: Internal server error
+     */
     async getUsers(req: Request, res: Response, next: NextFunction){
         try{
             const users = await UserService.getUsers();
@@ -74,6 +201,29 @@ class UserController{
             next(e);
         }
     }
+    /**
+     * @swagger
+     * /api/users/delete:
+     *   delete:
+     *     summary: Delete a user account
+     *     tags: [Users]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               id:
+     *                 type: string
+     *     responses:
+     *       200:
+     *         description: User account deleted successfully
+     *       400:
+     *         description: Bad request
+     *       500:
+     *         description: Internal server error
+     */
 
     async delete(req: Request, res: Response, next: NextFunction) {
         try {

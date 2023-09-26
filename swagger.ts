@@ -12,7 +12,8 @@ const options = {
     },
     apis: ["./infrastructure/controllers/BookController.ts",
         "./infrastructure/controllers/PublisherController.ts",
-        "./infrastructure/controllers/TypeController.ts"
+        "./infrastructure/controllers/TypeController.ts",
+        "./infrastructure/controllers/UserController.ts"
     ],
 };
 
