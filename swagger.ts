@@ -11,7 +11,9 @@ const options = {
         basePath: "/api",
     },
     apis: ["./infrastructure/controllers/BookController.ts",
-        "./infrastructure/controllers/PublisherController.ts"],
+        "./infrastructure/controllers/PublisherController.ts",
+        "./infrastructure/controllers/TypeController.ts"
+    ],
 };
 
 const specs = swaggerJsdoc(options);
