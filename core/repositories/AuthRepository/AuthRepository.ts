@@ -1,6 +1,8 @@
+import {User} from "../../domain/User";
+
 export interface AuthRepository {
-    registration(user: any): Promise<any>,
-    login(user: any): Promise<any>,
-    logout(refreshToken: any): Promise<any>,
-    refresh(refreshToken: any): Promise<any>
+    registration(user: User): Promise<User>,
+    login(user: User): Promise<User>,
+    logout(refreshToken: string): Promise<User>,
+    refresh(refreshToken: string): Promise<string>
 }

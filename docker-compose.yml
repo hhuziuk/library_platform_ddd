@@ -20,6 +20,8 @@ services:
     restart: always
   redis:
     image: redis
+    env_file:
+      - .env
     ports:
       - "6379"
   postgres:
