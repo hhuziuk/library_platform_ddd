@@ -1,4 +1,5 @@
 import {UserDto} from "./dto/UserDto";
+import {User} from "../../domain/User";
 export interface UserRepository {
     create(
         email: string,
@@ -6,9 +7,9 @@ export interface UserRepository {
         password: string,
         role: string
     ): Promise<UserDto>;
-    save(user: any): Promise<any>;
-    getAll(): Promise<any>;
-    getById(id: any): Promise<any>;
-    delete(id: any): Promise<any>;
+    save(user: User): Promise<UserDto>;
+    getAll(): Promise<UserDto>;
+    getById(id: any): Promise<UserDto>;
+    delete(id: any): Promise<UserDto>;
 
 }
