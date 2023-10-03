@@ -11,5 +11,4 @@ export interface UserRepository {
     getAll(): Promise<UserDto>;
     getById(id: any): Promise<UserDto>;
     delete(id: any): Promise<UserDto>;
-
 }
