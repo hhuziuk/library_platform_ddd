@@ -16,6 +16,7 @@ services:
     command: npm run dev
     depends_on:
       - postgres
+      - redis
     restart: always
   redis:
     image: redis
