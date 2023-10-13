@@ -1,5 +1,5 @@
 import {Response, Request, NextFunction} from "express";
-import PublisherInfrastructureService from "../services/PublisherInfrastructureService";
+import PublisherInfrastructureService from "../services/RestInfrastructureServices/PublisherInfrastructureService";
 
 class PublisherController{
     /**

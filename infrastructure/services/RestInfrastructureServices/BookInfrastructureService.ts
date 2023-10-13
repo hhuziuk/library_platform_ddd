@@ -1,9 +1,9 @@
-import ApiError from "../exceptions/Api-Error";
-import logger from "../../tools/logger";
-import BookDto from "../../core/repositories/BookRepository/dto/BookDto";
-import {BookDomainService} from "../../core/services/BookDomainService";
-import MongoBookRepository from "../db/repositories/MongoRepository/MongoBookRepository";
-import PostgresBookRepository from "../db/repositories/PostgresRepository/PostgresBookRepository";
+import ApiError from "../../exceptions/Api-Error";
+import logger from "../../../tools/logger";
+import BookDto from "../../../core/repositories/BookRepository/dto/BookDto";
+import {BookDomainService} from "../../../core/services/BookDomainService";
+import MongoBookRepository from "../../db/repositories/MongoRepository/MongoBookRepository";
+import PostgresBookRepository from "../../db/repositories/PostgresRepository/PostgresBookRepository";
 
 class BookInfrastructureService{
     constructor(readonly bookRepository: any = new BookDomainService(bookRepository)) {}

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import type { JwtPayload } from "jsonwebtoken"
-import {TokenDomainService} from "../../core/services/TokenDomainService";
-import PostgresTokenRepository from "../db/repositories/PostgresRepository/PostgresTokenRepository";
-import MongoTokenRepository from "../db/repositories/MongoRepository/MongoTokenRepository";
+import {TokenDomainService} from "../../../core/services/TokenDomainService";
+import PostgresTokenRepository from "../../db/repositories/PostgresRepository/PostgresTokenRepository";
+import MongoTokenRepository from "../../db/repositories/MongoRepository/MongoTokenRepository";
 
 class TokenInfrastructureService{
     constructor(readonly tokenRepository: any = new TokenDomainService(tokenRepository)) {}

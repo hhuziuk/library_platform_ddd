@@ -1,5 +1,4 @@
-import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
-import { EventEmitter } from 'events';
+import {UserDto} from "../../../core/repositories/UserRepository/dto/UserDto";
 
 class RedisService {
     async registration(user: any) {

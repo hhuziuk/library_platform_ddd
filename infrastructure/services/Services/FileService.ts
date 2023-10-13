@@ -1,4 +1,4 @@
-import logger from "../../tools/logger";
+import logger from "../../../tools/logger";
 import {v4} from "uuid";
 import path from "path";
 

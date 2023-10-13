@@ -9,7 +9,6 @@ import errorMiddleware from "./infrastructure/middleware/ErrorMiddleware";
 import fileUpload from "express-fileupload";
 import session from "express-session";
 import router from "./infrastructure/routers";
-import {createClient} from "redis";
 import RedisStore from "connect-redis";
 import redisClient from "./tools/RedisConnect";
 import {setupSwagger} from "./swagger";

@@ -1,8 +1,8 @@
 import {Response, Request, NextFunction} from "express";
 import logger from "../../tools/logger";
 import {UploadedFile} from "express-fileupload";
-import BookInfrastructureService from "../services/BookInfrastructureService";
-import FileService from "../services/FileService";
+import BookInfrastructureService from "../services/RestInfrastructureServices/BookInfrastructureService";
+import FileService from "../services/Services/FileService";
 
 /**
  * @swagger

@@ -1,5 +1,5 @@
 import {Response, Request, NextFunction} from "express";
-import TypeInfrastructureService from "../services/TypeInfrastructureService";
+import TypeInfrastructureService from "../services/RestInfrastructureServices/TypeInfrastructureService";
 
 class TypeController{
     /**

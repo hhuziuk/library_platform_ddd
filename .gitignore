@@ -3,3 +3,6 @@ build/
 node_modules/
 infrastructure/static/
 homebrew/
+redis-stable/
+redis-stable.tar.gz/
+redis.conf/

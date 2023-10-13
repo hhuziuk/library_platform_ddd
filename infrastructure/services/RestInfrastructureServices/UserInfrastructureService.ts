@@ -1,15 +1,15 @@
-import {UserDomainService} from "../../core/services/UserDomainService";
-import ApiError from "../exceptions/Api-Error";
+import {UserDomainService} from "../../../core/services/UserDomainService";
+import ApiError from "../../exceptions/Api-Error";
 import bcrypt from "bcrypt";
 import {v4} from "uuid";
-import mailService from "./MailService";
-import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
-import {AuthDomainService} from "../../core/services/AuthDomainService";
-import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
-import JWTService from "./JWTService";
-import RedisService from "./RedisService";
+import mailService from "../Services/MailService";
+import {UserDto} from "../../../core/repositories/UserRepository/dto/UserDto";
+import {AuthDomainService} from "../../../core/services/AuthDomainService";
+import PostgresUserRepository from "../../db/repositories/PostgresRepository/PostgresUserRepository";
+import JWTService from "../Services/JWTService";
+import RedisService from "../Services/RedisService";
 
-class UserService {
+class UserInfrastructureService {
     public cookiesEnabled: boolean
     constructor(readonly userRepository: any = new UserDomainService(userRepository),
                 readonly authRepository: any = new AuthDomainService(authRepository)) {
@@ -50,7 +50,7 @@ class UserService {
         if (!comparePassword) {
             throw ApiError.BadRequest("Wrong password")
         }
-        const userDto = new UserDto(user) // id, email, role, isActivated
+        const userDto = new UserDto(user)
         return await this.authRepository.login(user)
     }
 
@@ -73,4 +73,4 @@ class UserService {
     }
 }
 
-export default new UserService(PostgresUserRepository, RedisService)
+export default new UserInfrastructureService(PostgresUserRepository, RedisService)

@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import ApiError from "../exceptions/Api-Error";
-import tokenInfrastructureService from "../services/TokenInfrastructureService";
+import tokenInfrastructureService from "../services/RestInfrastructureServices/TokenInfrastructureService";
 import logger from "../../tools/logger";
 
 interface IDecode {

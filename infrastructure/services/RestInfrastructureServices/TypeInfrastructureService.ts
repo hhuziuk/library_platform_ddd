@@ -1,7 +1,7 @@
-import ApiError from "../exceptions/Api-Error";
-import {TypeDomainService} from "../../core/services/TypeDomainService";
-import PostgresTypeRepository from "../db/repositories/PostgresRepository/PostgresTypeRepository";
-import MongoTypeRepository from "../db/repositories/MongoRepository/MongoTypeRepository";
+import ApiError from "../../exceptions/Api-Error";
+import {TypeDomainService} from "../../../core/services/TypeDomainService";
+import PostgresTypeRepository from "../../db/repositories/PostgresRepository/PostgresTypeRepository";
+import MongoTypeRepository from "../../db/repositories/MongoRepository/MongoTypeRepository";
 
 
 class TypeInfrastructureService{

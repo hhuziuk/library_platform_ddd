@@ -1,9 +1,9 @@
-import {UserDto} from "../../core/repositories/UserRepository/dto/UserDto";
-import tokenInfrastructureService from "./TokenInfrastructureService";
-import ApiError from "../exceptions/Api-Error";
-import {UserDomainService} from "../../core/services/UserDomainService";
-import PostgresUserRepository from "../db/repositories/PostgresRepository/PostgresUserRepository";
-import MongoUserRepository from "../db/repositories/MongoRepository/MongoUserRepository";
+import {UserDto} from "../../../core/repositories/UserRepository/dto/UserDto";
+import tokenInfrastructureService from "../RestInfrastructureServices/TokenInfrastructureService";
+import ApiError from "../../exceptions/Api-Error";
+import {UserDomainService} from "../../../core/services/UserDomainService";
+import PostgresUserRepository from "../../db/repositories/PostgresRepository/PostgresUserRepository";
+import MongoUserRepository from "../../db/repositories/MongoRepository/MongoUserRepository";
 
 
 class JWTService {

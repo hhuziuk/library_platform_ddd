@@ -1,5 +1,5 @@
 import {Response, Request, NextFunction} from "express";
-import UserService from "../services/UserService";
+import UserService from "../services/RestInfrastructureServices/UserInfrastructureService";
 import logger from "../../tools/logger";
 
 class UserController{

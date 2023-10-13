@@ -4,7 +4,7 @@ import {User} from "../domain/User";
 
 export class AuthDomainService implements AuthRepository{
     constructor(private authRepository: AuthRepository) {}
-    registration(user: User){
+    registration(user: User) {
         return this.authRepository.registration(user);
     }
     login(user: User){
