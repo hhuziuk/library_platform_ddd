@@ -12,12 +12,11 @@ import router from "./infrastructure/routers";
 import RedisStore from "connect-redis";
 import redisClient from "./tools/RedisConnect";
 import {setupSwagger} from "./swagger";
-import {GraphQLSchema,} from 'graphql';
 import { graphqlHTTP } from "express-graphql"
 const PORT = process.env.PORT || 3015;
 const app = express();
-import schema from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/UserGraphQLSchema"
-
+import {buildSchema, print} from "graphql";
+import schema from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas";
 app.use(
     "/graphql",
     graphqlHTTP({
