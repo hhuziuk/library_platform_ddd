@@ -8,7 +8,7 @@ export const bookResolvers = {
             return [...postgresBooks];
         },
         getOne: async (parent, args) => {
-            return await PostgresBookRepository.findOne(book => book.id === args.id);
+            return await PostgresBookRepository.findOne({ id: args.id });
         },
     },
 };

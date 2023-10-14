@@ -8,7 +8,7 @@ export const typeResolvers = {
             return [...postgresTypes];
         },
         getOne: async (parent, args) => {
-            return await PostgresTypeRepository.findOne(type => type.id === args.id);
+            return await PostgresTypeRepository.findOne({ id: args.id });
         },
     },
 };

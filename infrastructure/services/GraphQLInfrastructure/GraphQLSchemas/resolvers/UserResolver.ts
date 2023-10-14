@@ -8,7 +8,7 @@ export const userResolvers = {
             return [...postgresUsers];
         },
         getOne: async (parent, args) => {
-            return await PostgresUserRepository.findOne(user => user.id === args.id);
+            return await PostgresUserRepository.findOne({ id: args.id });
         },
     },
 };
