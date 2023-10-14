@@ -6,6 +6,8 @@ import {UserType} from "./TypeDefs/UserTypeDef";
 import {userResolvers} from "./resolvers/UserResolver";
 import {User} from "../../../db/entities/PostgresEntities/UserModel";
 import PostgresUserRepository from "../../../db/repositories/PostgresRepository/PostgresUserRepository";
+import {typeResolvers} from "./resolvers/TypeResolver";
+import {TypeType} from "./TypeDefs/TypeTypeDef";
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -18,6 +20,15 @@ const RootQuery = new GraphQLObjectType({
             type: BookType,
             args: { id: { type: GraphQLID } },
             resolve: bookResolvers.Query.getOne,
+        },
+        types: {
+            type: new GraphQLList(TypeType),
+            resolve: typeResolvers.Query.getAll,
+        },
+        type: {
+            type: TypeType,
+            args: { id: { type: GraphQLID } },
+            resolve: typeResolvers.Query.getOne,
         },
         users: {
             type: new GraphQLList(UserType),
