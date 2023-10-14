@@ -1,36 +1,75 @@
-import {GraphQLID, GraphQLList, GraphQLObjectType} from "graphql/type";
+import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType} from "graphql/type";
 import {BookType} from "./TypeDefs/BookTypeDef";
 import {bookResolvers} from "./resolvers/BookResolver";
-import {GraphQLSchema} from "graphql";
+import {GraphQLSchema, GraphQLString} from "graphql";
 import {UserType} from "./TypeDefs/UserTypeDef";
 import {userResolvers} from "./resolvers/UserResolver";
+import {User} from "../../../db/entities/PostgresEntities/UserModel";
+import PostgresUserRepository from "../../../db/repositories/PostgresRepository/PostgresUserRepository";
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
         books: {
             type: new GraphQLList(BookType),
-            resolve: bookResolvers.Query.books,
+            resolve: bookResolvers.Query.getAll,
         },
         book: {
             type: BookType,
             args: { id: { type: GraphQLID } },
-            resolve: bookResolvers.Query.book,
+            resolve: bookResolvers.Query.getOne,
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve: userResolvers.Query.users,
+            resolve: userResolvers.Query.getAll,
         },
         user: {
             type: UserType,
             args: { id: { type: GraphQLID } },
-            resolve: userResolvers.Query.user,
+            resolve: userResolvers.Query.getOne,
         },
     }
 });
 
+const Mutation = new GraphQLObjectType({
+    name: "Mutation",
+    fields: {
+        //Create new user
+        addUser: {
+            type: UserType,
+            args: {
+                username: { type: GraphQLNonNull(GraphQLString) },
+                password: { type: GraphQLNonNull(GraphQLString) },
+                email: { type: GraphQLNonNull(GraphQLString) },
+                role: { type: GraphQLNonNull(GraphQLString) },
+            },
+            async resolve(parent, args){
+                const user = new User();
+                return await PostgresUserRepository.save({
+                    username: args.username,
+                    password: args.password,
+                    email: args.email,
+                    role: args.role
+                })
+            }
+        },
+        //Delete an user
+        deleteUser: {
+            type: UserType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            async resolve(parent, args){
+                const user = new User();
+                return await PostgresUserRepository.delete(args.id)
+            }
+        },
+    }
+})
+
 const schema = new GraphQLSchema({
     query: RootQuery,
+    mutation: Mutation
 });
 
 export default schema;
