@@ -10,6 +10,9 @@ import {typeResolvers} from "./resolvers/TypeResolver";
 import {TypeType} from "./TypeDefs/TypeTypeDef";
 import {publisherResolvers} from "./resolvers/PublisherResolver";
 import {PublisherType} from "./TypeDefs/PublisherTypeDef";
+import PostgresBookRepository from "../../../db/repositories/PostgresRepository/PostgresBookRepository";
+import {Book} from "../../../db/entities/PostgresEntities/BookModel";
+
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -84,6 +87,42 @@ const Mutation = new GraphQLObjectType({
             async resolve(parent, args){
                 const user = new User();
                 return await PostgresUserRepository.delete(args.id)
+            }
+        },
+        //Create new book
+        addBook: {
+            type: BookType,
+            args: {
+                name: { type: GraphQLString },
+                author: { type: GraphQLString },
+                description: { type: GraphQLString },
+                file: { type: GraphQLString },
+                ISBN: { type: GraphQLString },
+                typeId: { type: GraphQLID },
+                publisherId: { type: GraphQLID },
+            },
+            async resolve(parent, args){
+                const user = new User();
+                return await PostgresBookRepository.save({
+                    name: args.name,
+                    author: args.author,
+                    description: args.description,
+                    file: args.file,
+                    ISBN: args.ISBN,
+                    typeId: args.typeId,
+                    publisherId: args.publisherId
+                })
+            }
+        },
+        //Delete a book
+        deleteBook: {
+            type: BookType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            async resolve(parent, args){
+                const book = new Book();
+                return await PostgresBookRepository.delete(args.id)
             }
         },
     }
