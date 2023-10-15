@@ -12,6 +12,8 @@ import {publisherResolvers} from "./resolvers/PublisherResolver";
 import {PublisherType} from "./TypeDefs/PublisherTypeDef";
 import PostgresBookRepository from "../../../db/repositories/PostgresRepository/PostgresBookRepository";
 import {Book} from "../../../db/entities/PostgresEntities/BookModel";
+import {Publisher} from "../../../db/entities/PostgresEntities/PublisherModel";
+import PostgresPublisherRepository from "../../../db/repositories/PostgresRepository/PostgresPublisherRepository";
 
 
 const RootQuery = new GraphQLObjectType({
@@ -123,6 +125,30 @@ const Mutation = new GraphQLObjectType({
             async resolve(parent, args){
                 const book = new Book();
                 return await PostgresBookRepository.delete(args.id)
+            }
+        },
+        //Create new publisher
+        addPublisher: {
+            type: PublisherType,
+            args: {
+                name: { type: GraphQLString },
+            },
+            async resolve(parent, args){
+                const publisher = new Publisher();
+                return await PostgresPublisherRepository.save({
+                    name: args.name
+                })
+            }
+        },
+        //Delete a publisher
+        deletePublisher: {
+            type: PublisherType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            async resolve(parent, args){
+                const publisher = new Publisher();
+                return await PostgresPublisherRepository.delete(args.id)
             }
         },
     }
