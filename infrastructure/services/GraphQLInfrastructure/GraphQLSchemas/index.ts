@@ -14,6 +14,8 @@ import PostgresBookRepository from "../../../db/repositories/PostgresRepository/
 import {Book} from "../../../db/entities/PostgresEntities/BookModel";
 import {Publisher} from "../../../db/entities/PostgresEntities/PublisherModel";
 import PostgresPublisherRepository from "../../../db/repositories/PostgresRepository/PostgresPublisherRepository";
+import PostgresTypeRepository from "../../../db/repositories/PostgresRepository/PostgresTypeRepository";
+import {Type} from "../../../db/entities/PostgresEntities/TypeModel";
 
 
 const RootQuery = new GraphQLObjectType({
@@ -149,6 +151,30 @@ const Mutation = new GraphQLObjectType({
             async resolve(parent, args){
                 const publisher = new Publisher();
                 return await PostgresPublisherRepository.delete(args.id)
+            }
+        },
+        //Create new type
+        addType: {
+            type: TypeType,
+            args: {
+                name: { type: GraphQLString },
+            },
+            async resolve(parent, args){
+                const type = new Type();
+                return await PostgresTypeRepository.save({
+                    name: args.name
+                })
+            }
+        },
+        //Delete a type
+        deleteType: {
+            type: TypeType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            async resolve(parent, args){
+                const type = new Type();
+                return await PostgresTypeRepository.delete(args.id)
             }
         },
     }
