@@ -16,6 +16,7 @@ import {Publisher} from "../../../db/entities/PostgresEntities/PublisherModel";
 import PostgresPublisherRepository from "../../../db/repositories/PostgresRepository/PostgresPublisherRepository";
 import PostgresTypeRepository from "../../../db/repositories/PostgresRepository/PostgresTypeRepository";
 import {Type} from "../../../db/entities/PostgresEntities/TypeModel";
+import {ApolloServer} from "@apollo/server/dist/cjs";
 
 
 const RootQuery = new GraphQLObjectType({
@@ -48,135 +49,21 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLID } },
             resolve: publisherResolvers.Query.getOne,
         },
-        users: {
-            type: new GraphQLList(UserType),
-            resolve: userResolvers.Query.getAll,
-        },
-        user: {
-            type: UserType,
-            args: { id: { type: GraphQLID } },
-            resolve: userResolvers.Query.getOne,
-        },
+
     }
 });
 
 const Mutation = new GraphQLObjectType({
     name: "Mutation",
     fields: {
-        //Create new user
-        addUser: {
-            type: UserType,
-            args: {
-                username: { type: GraphQLNonNull(GraphQLString) },
-                password: { type: GraphQLNonNull(GraphQLString) },
-                email: { type: GraphQLNonNull(GraphQLString) },
-                role: { type: GraphQLNonNull(GraphQLString) },
-            },
-            async resolve(parent, args){
-                const user = new User();
-                return await PostgresUserRepository.save({
-                    username: args.username,
-                    password: args.password,
-                    email: args.email,
-                    role: args.role
-                })
-            }
-        },
-        //Delete an user
-        deleteUser: {
-            type: UserType,
-            args: {
-                id: { type: GraphQLNonNull(GraphQLID) },
-            },
-            async resolve(parent, args){
-                const user = new User();
-                return await PostgresUserRepository.delete(args.id)
-            }
-        },
-        //Create new book
-        addBook: {
-            type: BookType,
-            args: {
-                name: { type: GraphQLString },
-                author: { type: GraphQLString },
-                description: { type: GraphQLString },
-                file: { type: GraphQLString },
-                ISBN: { type: GraphQLString },
-                typeId: { type: GraphQLID },
-                publisherId: { type: GraphQLID },
-            },
-            async resolve(parent, args){
-                const user = new User();
-                return await PostgresBookRepository.save({
-                    name: args.name,
-                    author: args.author,
-                    description: args.description,
-                    file: args.file,
-                    ISBN: args.ISBN,
-                    typeId: args.typeId,
-                    publisherId: args.publisherId
-                })
-            }
-        },
-        //Delete a book
-        deleteBook: {
-            type: BookType,
-            args: {
-                id: { type: GraphQLNonNull(GraphQLID) },
-            },
-            async resolve(parent, args){
-                const book = new Book();
-                return await PostgresBookRepository.delete(args.id)
-            }
-        },
-        //Create new publisher
-        addPublisher: {
-            type: PublisherType,
-            args: {
-                name: { type: GraphQLString },
-            },
-            async resolve(parent, args){
-                const publisher = new Publisher();
-                return await PostgresPublisherRepository.save({
-                    name: args.name
-                })
-            }
-        },
-        //Delete a publisher
-        deletePublisher: {
-            type: PublisherType,
-            args: {
-                id: { type: GraphQLNonNull(GraphQLID) },
-            },
-            async resolve(parent, args){
-                const publisher = new Publisher();
-                return await PostgresPublisherRepository.delete(args.id)
-            }
-        },
-        //Create new type
-        addType: {
-            type: TypeType,
-            args: {
-                name: { type: GraphQLString },
-            },
-            async resolve(parent, args){
-                const type = new Type();
-                return await PostgresTypeRepository.save({
-                    name: args.name
-                })
-            }
-        },
-        //Delete a type
-        deleteType: {
-            type: TypeType,
-            args: {
-                id: { type: GraphQLNonNull(GraphQLID) },
-            },
-            async resolve(parent, args){
-                const type = new Type();
-                return await PostgresTypeRepository.delete(args.id)
-            }
-        },
+        addUser: userResolvers.Mutation.fields.addUser,
+        deleteUser: userResolvers.Mutation.fields.deleteUser,
+        addBook: bookResolvers.Mutation.fields.addBook,
+        deleteBook: bookResolvers.Mutation.fields.deleteBook,
+        addPublisher: publisherResolvers.Mutation.fields.addPublisher,
+        deletePublisher: publisherResolvers.Mutation.fields.deletePublisher,
+        addType: typeResolvers.Mutation.fields.addType,
+        deleteType: typeResolvers.Mutation.fields.deleteType,
     }
 })
 

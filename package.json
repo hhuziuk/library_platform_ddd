@@ -18,6 +18,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@apollo/server": "^4.9.4",
     "@mikro-orm/core": "^5.8.1",
     "@types/bcrypt": "^5.0.0",
     "@types/config": "^3.3.1",

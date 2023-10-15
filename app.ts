@@ -15,8 +15,19 @@ import {setupSwagger} from "./swagger";
 import { graphqlHTTP } from "express-graphql"
 const PORT = process.env.PORT || 3015;
 const app = express();
-import {buildSchema, print} from "graphql";
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 import schema from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas";
+import {bookResolvers} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/resolvers/BookResolver";
+import {userResolvers} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/resolvers/UserResolver";
+import {
+    publisherResolvers
+} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/resolvers/PublisherResolver";
+import {typeResolvers} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/resolvers/TypeResolver";
+import {UserType} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/TypeDefs/UserTypeDef";
+import {BookType} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/TypeDefs/BookTypeDef";
+import {PublisherType} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/TypeDefs/PublisherTypeDef";
+import {TypeType} from "./infrastructure/services/GraphQLInfrastructure/GraphQLSchemas/TypeDefs/TypeTypeDef";
 app.use(
     "/graphql",
     graphqlHTTP({
@@ -45,7 +56,6 @@ app.use('/api', router)
 
 setupSwagger(app);
 
-
 const start = async() => {
     try{
         await redisClient.connect().then(() => console.log('Redis Connected...'))
@@ -55,6 +65,9 @@ const start = async() => {
         await mongoose.connect(process.env.MONGODB_URL || '')
             .then(() => console.log('MongoDB Connected...'))
             .catch((error) => logger.error(error))
+        // const { url } = await startStandaloneServer(server, {
+        //     listen: { port: 4000 },
+        // })
         app.listen(PORT, () => {logger.info(`app is running on ${PORT} port`)})
     } catch(e){
         logger.error(e)
