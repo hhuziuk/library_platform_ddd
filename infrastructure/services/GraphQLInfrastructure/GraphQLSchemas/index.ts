@@ -22,15 +22,8 @@ import {ApolloServer} from "@apollo/server/dist/cjs";
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        books: {
-            type: new GraphQLList(BookType),
-            resolve: bookResolvers.Query.getAll,
-        },
-        book: {
-            type: BookType,
-            args: { id: { type: GraphQLID } },
-            resolve: bookResolvers.Query.getOne,
-        },
+        book: bookResolvers.Query.book,
+        books: bookResolvers.Query.books,
         types: {
             type: new GraphQLList(TypeType),
             resolve: typeResolvers.Query.getAll,

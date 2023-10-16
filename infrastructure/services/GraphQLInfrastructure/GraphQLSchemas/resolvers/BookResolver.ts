@@ -1,23 +1,52 @@
-import PostgresBookRepository from "../../../../db/repositories/PostgresRepository/PostgresBookRepository";
-import {BookType} from "../TypeDefs/BookTypeDef";
-import {GraphQLString} from "graphql";
-import {GraphQLID, GraphQLNonNull} from "graphql/type";
-import {User} from "../../../../db/entities/PostgresEntities/UserModel";
-import {Book} from "../../../../db/entities/PostgresEntities/BookModel";
+import PostgresBookRepository from '../../../../db/repositories/PostgresRepository/PostgresBookRepository';
+import { BookType } from '../TypeDefs/BookTypeDef';
+import { GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
+import { User } from '../../../../db/entities/PostgresEntities/UserModel';
+import { Book } from '../../../../db/entities/PostgresEntities/BookModel';
+
+const getAllBooks = async (parent, args) => {
+    const postgresBooks = await PostgresBookRepository.find();
+    return [...postgresBooks];
+};
+
+const getOneBook = async (parent, args) => {
+    return await PostgresBookRepository.findOne({ id: args.id });
+};
+
+const addBook = async (parent, args) => {
+    const user = new User();
+    return await PostgresBookRepository.save({
+        name: args.name,
+        author: args.author,
+        description: args.description,
+        file: args.file,
+        ISBN: args.ISBN,
+        typeId: args.typeId,
+        publisherId: args.publisherId,
+    });
+};
+
+const deleteBook = async (parent, args) => {
+    const book = new Book();
+    return await PostgresBookRepository.delete(args.id);
+};
 
 export const bookResolvers = {
     Query: {
-        getAll: async (parent, args) => {
-            //const mongoBooks = await MongoBookRepository.find();
-            const postgresBooks = await PostgresBookRepository.find();
-            return [...postgresBooks];
+        getAll: getAllBooks,
+        getOne: getOneBook,
+        books: {
+            type: new GraphQLList(BookType),
+            resolve: getAllBooks,
         },
-        getOne: async (parent, args) => {
-            return await PostgresBookRepository.findOne({ id: args.id });
+        book: {
+            type: BookType,
+            args: { id: { type: GraphQLID } },
+            resolve: getOneBook,
         },
     },
     Mutation: {
-        name: "BookMutation",
+        name: 'BookMutation',
         fields: {
             addBook: {
                 type: BookType,
@@ -30,30 +59,15 @@ export const bookResolvers = {
                     typeId: { type: GraphQLID },
                     publisherId: { type: GraphQLID },
                 },
-                async resolve(parent, args){
-                    const user = new User();
-                    return await PostgresBookRepository.save({
-                        name: args.name,
-                        author: args.author,
-                        description: args.description,
-                        file: args.file,
-                        ISBN: args.ISBN,
-                        typeId: args.typeId,
-                        publisherId: args.publisherId
-                    })
-                }
+                resolve: addBook,
             },
-            //Delete a book
             deleteBook: {
                 type: BookType,
                 args: {
                     id: { type: GraphQLNonNull(GraphQLID) },
                 },
-                async resolve(parent, args){
-                    const book = new Book();
-                    return await PostgresBookRepository.delete(args.id)
-                }
+                resolve: deleteBook,
             },
-        }
-    }
+        },
+    },
 };
