@@ -1,18 +1,33 @@
 import PostgresUserRepository from "../../../../db/repositories/PostgresRepository/PostgresUserRepository";
 import {UserType} from "../TypeDefs/UserTypeDef";
 import {GraphQLID, GraphQLNonNull} from "graphql/type";
-import {GraphQLString} from "graphql";
+import {GraphQLList, GraphQLString} from "graphql";
 import {User} from "../../../../db/entities/PostgresEntities/UserModel";
+import PostgresBookRepository from "../../../../db/repositories/PostgresRepository/PostgresBookRepository";
+import {BookType} from "../TypeDefs/BookTypeDef";
+
+
+const getAllUsers = async (parent, args) => {
+    const postgresUsers = await PostgresUserRepository.find();
+    return [...postgresUsers];
+};
+
+const getOneUser = async (parent, args) => {
+    return await PostgresUserRepository.findOne({ id: args.id });
+};
 
 export const userResolvers = {
     Query: {
-        getAll: async (parent, args) => {
-            //const mongoUsers = await MongoUserRepository.find();
-            const postgresUsers = await PostgresUserRepository.find();
-            return [...postgresUsers];
+        getAll: getAllUsers,
+        getOne: getOneUser,
+        users: {
+            type: new GraphQLList(UserType),
+            resolve: getAllUsers,
         },
-        getOne: async (parent, args) => {
-            return await PostgresUserRepository.findOne({ id: args.id });
+        user: {
+            type: BookType,
+            args: { id: { type: GraphQLID } },
+            resolve: getOneUser,
         },
 
     },

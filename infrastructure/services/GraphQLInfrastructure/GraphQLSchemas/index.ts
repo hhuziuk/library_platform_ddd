@@ -24,6 +24,8 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         book: bookResolvers.Query.book,
         books: bookResolvers.Query.books,
+        user: userResolvers.Query.user,
+        users: userResolvers.Query.users,
         types: {
             type: new GraphQLList(TypeType),
             resolve: typeResolvers.Query.getAll,
