@@ -2,17 +2,32 @@ import PostgresTypeRepository from "../../../../db/repositories/PostgresReposito
 import {GraphQLID, GraphQLNonNull} from "graphql/type";
 import {Type} from "../../../../db/entities/PostgresEntities/TypeModel";
 import {TypeType} from "../TypeDefs/TypeTypeDef";
-import {GraphQLString} from "graphql";
+import {GraphQLList, GraphQLString} from "graphql";
+import PostgresUserRepository from "../../../../db/repositories/PostgresRepository/PostgresUserRepository";
+import {UserType} from "../TypeDefs/UserTypeDef";
+import {BookType} from "../TypeDefs/BookTypeDef";
+
+const getAllTypes = async (parent, args) => {
+    const postgresTypes = await PostgresTypeRepository.find();
+    return [...postgresTypes];
+};
+
+const getOneType = async (parent, args) => {
+    return await PostgresTypeRepository.findOne({ id: args.id });
+};
 
 export const typeResolvers = {
     Query: {
-        getAll: async (parent, args) => {
-            //const mongoUsers = await MongoTypeRepository.find();
-            const postgresTypes = await PostgresTypeRepository.find();
-            return [...postgresTypes];
+        getAll: getAllTypes,
+        getOne: getOneType,
+        types: {
+            type: new GraphQLList(TypeType),
+            resolve: getAllTypes,
         },
-        getOne: async (parent, args) => {
-            return await PostgresTypeRepository.findOne({ id: args.id });
+        type: {
+            type: BookType,
+            args: { id: { type: GraphQLID } },
+            resolve: getOneType,
         },
     },
     Mutation: {
