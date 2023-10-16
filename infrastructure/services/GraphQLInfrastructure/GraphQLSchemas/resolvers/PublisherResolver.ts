@@ -1,20 +1,34 @@
 import PostgresPublisherRepository from "../../../../db/repositories/PostgresRepository/PostgresPublisherRepository";
 import {PublisherType} from "../TypeDefs/PublisherTypeDef";
-import {GraphQLString} from "graphql";
+import {GraphQLList, GraphQLString} from "graphql";
 import {Publisher} from "../../../../db/entities/PostgresEntities/PublisherModel";
 import {GraphQLID, GraphQLNonNull} from "graphql/type";
+import PostgresUserRepository from "../../../../db/repositories/PostgresRepository/PostgresUserRepository";
+import {UserType} from "../TypeDefs/UserTypeDef";
+import {BookType} from "../TypeDefs/BookTypeDef";
+
+const getAllPublishers = async (parent, args) => {
+    const postgresPublishers = await PostgresPublisherRepository.find();
+    return [...postgresPublishers];
+};
+
+const getOnePublisher = async (parent, args) => {
+    return await PostgresPublisherRepository.findOne({ id: args.id });
+};
 
 export const publisherResolvers = {
     Query: {
-        getAll: async (parent, args) => {
-            //const mongoUsers = await MongoPublisherRepository.find();
-            const postgresPublishers = await PostgresPublisherRepository.find();
-            return [...postgresPublishers];
+        getAll: getAllPublishers,
+        getOne: getOnePublisher,
+        publishers: {
+            type: new GraphQLList(PublisherType),
+            resolve: getAllPublishers,
         },
-        getOne: async (parent, args) => {
-            return await PostgresPublisherRepository.findOne({ id: args.id });
+        publisher: {
+            type: BookType,
+            args: { id: { type: GraphQLID } },
+            resolve: getOnePublisher,
         },
-
     },
 
     Mutation: {

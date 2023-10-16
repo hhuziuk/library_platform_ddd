@@ -28,16 +28,8 @@ const RootQuery = new GraphQLObjectType({
         users: userResolvers.Query.users,
         type: typeResolvers.Query.type,
         types: typeResolvers.Query.types,
-        publishers: {
-            type: new GraphQLList(PublisherType),
-            resolve: publisherResolvers.Query.getAll,
-        },
-        publisher: {
-            type: PublisherType,
-            args: { id: { type: GraphQLID } },
-            resolve: publisherResolvers.Query.getOne,
-        },
-
+        publishers: publisherResolvers.Query.publishers,
+        publisher: publisherResolvers.Query.publisher,
     }
 });
 
