@@ -3,8 +3,6 @@ import {PublisherType} from "../TypeDefs/PublisherTypeDef";
 import {GraphQLList, GraphQLString} from "graphql";
 import {Publisher} from "../../../../db/entities/PostgresEntities/PublisherModel";
 import {GraphQLID, GraphQLNonNull} from "graphql/type";
-import PostgresUserRepository from "../../../../db/repositories/PostgresRepository/PostgresUserRepository";
-import {UserType} from "../TypeDefs/UserTypeDef";
 import {BookType} from "../TypeDefs/BookTypeDef";
 
 const getAllPublishers = async (parent, args) => {

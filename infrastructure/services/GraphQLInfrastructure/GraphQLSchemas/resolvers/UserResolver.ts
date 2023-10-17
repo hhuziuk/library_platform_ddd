@@ -3,7 +3,6 @@ import {UserType} from "../TypeDefs/UserTypeDef";
 import {GraphQLID, GraphQLNonNull} from "graphql/type";
 import {GraphQLList, GraphQLString} from "graphql";
 import {User} from "../../../../db/entities/PostgresEntities/UserModel";
-import PostgresBookRepository from "../../../../db/repositories/PostgresRepository/PostgresBookRepository";
 import {BookType} from "../TypeDefs/BookTypeDef";
 
 

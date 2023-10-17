@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString } from "graphql/type";
+import { GraphQLID, GraphQLObjectType, GraphQLString } from "graphql/type";
 
 export const BookType = new GraphQLObjectType({
     name: 'Book',

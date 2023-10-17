@@ -1,5 +1,4 @@
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
-import path from "path";
 import {User} from "./infrastructure/db/entities/PostgresEntities/UserModel";
 import {Book} from "./infrastructure/db/entities/PostgresEntities/BookModel";
 import {Publisher} from "./infrastructure/db/entities/PostgresEntities/PublisherModel";

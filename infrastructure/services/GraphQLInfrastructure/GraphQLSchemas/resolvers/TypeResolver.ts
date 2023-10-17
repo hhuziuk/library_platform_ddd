@@ -3,8 +3,6 @@ import {GraphQLID, GraphQLNonNull} from "graphql/type";
 import {Type} from "../../../../db/entities/PostgresEntities/TypeModel";
 import {TypeType} from "../TypeDefs/TypeTypeDef";
 import {GraphQLList, GraphQLString} from "graphql";
-import PostgresUserRepository from "../../../../db/repositories/PostgresRepository/PostgresUserRepository";
-import {UserType} from "../TypeDefs/UserTypeDef";
 import {BookType} from "../TypeDefs/BookTypeDef";
 
 const getAllTypes = async (parent, args) => {
