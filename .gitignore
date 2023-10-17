@@ -6,3 +6,4 @@ homebrew/
 redis-stable/
 redis-stable.tar.gz/
 redis.conf/
+package-lock 2.json
