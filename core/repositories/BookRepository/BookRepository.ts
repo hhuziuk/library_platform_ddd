@@ -7,15 +7,15 @@ export interface BookRepository {
         description: string,
         file: string,
         ISBN: string,
-        typeId: any,
-        publisherId: any
+        typeId: string | number,
+        publisherId: string | number
 
     ): Promise<User>;
     getAll(): Promise<Book[]>;
     create(object: object): Promise<Book>;
     save(book: Book): Promise<Book>;
     findOne(object: object): Promise<Book>;
-    getById(id: any): Promise<Book | null>;
-    delete(id: any): Promise<void>;
+    getById(id: string | number): Promise<Book | null>;
+    delete(id: string | number): Promise<void>;
 
 }

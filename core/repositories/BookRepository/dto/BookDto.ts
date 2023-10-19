@@ -4,10 +4,10 @@ export default class BookDto {
     description: string;
     file: string;
     ISBN: string;
-    typeId: any;
-    publisherId: any;
+    typeId: string | number;
+    publisherId: string | number;
     constructor(model: {name: string, author: string, description: string, file: string, ISBN: string,
-        typeId: any, publisherId: any}){
+        typeId: string | number, publisherId: string | number}){
         this.name = model.name;
         this.author = model.author;
         this.description = model.description;
