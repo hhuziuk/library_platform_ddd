@@ -1,4 +1,4 @@
-import jwt, {JwtPayload} from "jsonwebtoken";
+import {JwtPayload} from "jsonwebtoken";
 import {TokenRepository} from "../repositories/TokenRepository/TokenRepository";
 
 export class TokenDomainService implements TokenRepository {
