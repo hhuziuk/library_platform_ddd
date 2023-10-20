@@ -9,6 +9,6 @@ export interface UserRepository {
     ): Promise<UserDto>;
     save(user: User): Promise<UserDto>;
     getAll(): Promise<UserDto>;
-    getById(id: any): Promise<UserDto>;
-    delete(id: any): Promise<UserDto>;
+    getById(id: string | number): Promise<UserDto>;
+    delete(id: string | number): Promise<UserDto>;
 }
