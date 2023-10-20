@@ -10,10 +10,10 @@ export class PublisherDomainService implements PublisherRepostiory {
     async getAll(){
         return this.publisherRepository.getAll();
     }
-    async getById(id: any){
+    async getById(id: string | number){
         return this.publisherRepository.getById(id);
     }
-    async delete(id: any){
+    async delete(id: string | number){
         return this.publisherRepository.delete(id);
     }
 
