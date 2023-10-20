@@ -15,11 +15,11 @@ export class UserDomainService implements UserRepository{
         return this.userRepository.getAll();
     }
 
-    async getById(id: any) {
+    async getById(id: string | number) {
         return this.userRepository.getById(id);
     }
 
-    async delete(id: any) {
+    async delete(id: string | number) {
         return this.userRepository.delete(id);
     }
 }
