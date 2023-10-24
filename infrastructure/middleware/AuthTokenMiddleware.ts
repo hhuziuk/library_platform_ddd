@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import ApiError from "../exceptions/Api-Error";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 interface IDecode {
     id: string;
